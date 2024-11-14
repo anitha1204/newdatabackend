@@ -86,7 +86,7 @@ exports.sendOtp = async (req, res) => {
 
     // Generate OTP and save it temporarily
     const otp = generateOTP();
-    otpStore[Email] = { otp, expiresAt: Date.now() + 7 * 60 * 1000 }; 
+    otpStore[Email] = { otp, expiresAt: Date.now() + 5 * 60 * 1000 }; 
 
     // Create a Nodemailer transporter using SMTP
     const transporter = nodemailer.createTransport({
@@ -114,7 +114,7 @@ exports.sendOtp = async (req, res) => {
 
 // Step 2: Verify OTP and Login
 exports.verifyOtpAndLogin = async (req, res) => {
-  const { Email, otp, Password } = req.body;
+  const { Email, otp } = req.body;
 
   try {
     // Check if user exists
@@ -123,11 +123,11 @@ exports.verifyOtpAndLogin = async (req, res) => {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
-    // Check if password matches
-    const isMatch = await bcrypt.compare(Password, user.Password);
-    if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
-    }
+    // // Check if password matches
+    // const isMatch = await bcrypt.compare(Password, user.Password);
+    // if (!isMatch) {
+    //   return res.status(400).json({ msg: 'Invalid credentials' });
+    // }
 
     // Check OTP expiration
     const otpData = otpStore[Email];
