@@ -160,7 +160,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const UserDatas = require('../models/userModel');
+const  Newdata= require('../models/userModel');
 
 dotenv.config();
 
@@ -198,12 +198,12 @@ const cleanInput = (input) => {
 };
 
 // Updated Username Validation
-const validateUsername = (username) => {
+const validateUsername = (userName) => {
     const letterOnly = /^[A-Za-z]+$/;
     const hasUppercase = /[A-Z]/;
     const hasLowercase = /[a-z]/;
     
-    return letterOnly.test(username) && (hasUppercase.test(username) || hasLowercase.test(username));
+    return letterOnly.test(userName) && (hasUppercase.test(userName) || hasLowercase.test(userName));
 };
 
 // Updated Password Validation
@@ -224,18 +224,18 @@ const validateEmail = (email) => {
 
 // Register Function
 const register = async (req, res) => {
-    const { username, email, password } = cleanInput(req.body);
+    const { userName, email, password } = cleanInput(req.body);
 
     // Log incoming request
     debugLog('Register request', req.body);
 
     try {
-        if (!username || !email || !password) {
+        if (!userName || !email || !password) {
             return res.status(400).json({ msg: 'Username, email, and password are required' });
         }
 
         // Validate username, email, and password
-        if (!validateUsername(username)) {
+        if (!validateUsername(userName)) {
             return res.status(400).json({ msg: 'Username must contain only letters and have at least one uppercase or one lowercase letter' });
         }
 
@@ -248,21 +248,21 @@ const register = async (req, res) => {
         }
 
         // Convert username to uppercase
-        const uppercaseUsername = username.toUpperCase();
+        const uppercaseUsername = userName.toUpperCase();
 
         // Log input validation
         debugLog('Username', uppercaseUsername);
         debugLog('Email', email);
         debugLog('Password', password);
 
-        let user = await Newdata.findOne({ $or: [{ username: uppercaseUsername }, { email }] });
+        let user = await Newdata.findOne({ $or: [{ userName: uppercaseUsername }, { email }] });
 
         if (user) {
             return res.status(400).json({ msg: 'User already exists' });
         }
 
         user = new Newdata({ 
-            username: uppercaseUsername,
+            userName: uppercaseUsername,
             email,
             password,
         });
@@ -292,25 +292,25 @@ const register = async (req, res) => {
 
 // Login Function
 const login = async (req, res) => {
-    const { usernameOrEmail, password } = cleanInput(req.body);
+    const { userNameOrEmail, password } = cleanInput(req.body);
 
     // Log incoming request
     debugLog('Login request', req.body);
 
     try {
-        if (!usernameOrEmail || !password) {
+        if (!userNameOrEmail || !password) {
             return res.status(400).json({ msg: 'Username/Email and password are required' });
         }
 
         // Convert usernameOrEmail to uppercase
-        const uppercaseUsernameOrEmail = usernameOrEmail.toUpperCase();
+        const uppercaseUsernameOrEmail = userNameOrEmail.toUpperCase();
 
         // Log input validation
         debugLog('Username/Email', uppercaseUsernameOrEmail);
         debugLog('Password', password);
 
         const user = await Newdata.findOne({
-            $or: [{ username: uppercaseUsernameOrEmail }, { email: usernameOrEmail }]
+            $or: [{ username: uppercaseUsernameOrEmail }, { email: userNameOrEmail }]
         });
 
         if (!user) {
