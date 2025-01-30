@@ -160,7 +160,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const  Newdata= require('../models/userModel');
+const Newdata= require('../models/userModel');
 
 dotenv.config();
 
@@ -207,30 +207,30 @@ const validateUsername = (userName) => {
 };
 
 // Updated Password Validation
-const validatePassword = (password) => {
+const validatePassword = (Password) => {
     const hasUppercase = /[A-Z]/;
     const hasLowercase = /[a-z]/;
     const hasNumber = /\d/;
     const hasSpecialChar = /[!@#$%^&*]/;
 
-    return password.length >= 8 && (hasUppercase.test(password) || hasLowercase.test(password)) && hasNumber.test(password) && hasSpecialChar.test(password);
+    return Password.length >= 8 && (hasUppercase.test(Password) || hasLowercase.test(Password)) && hasNumber.test(Password) && hasSpecialChar.test(Password);
 };
 
 // Email Validation
-const validateEmail = (email) => {
+const validateEmail = (Email) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+    return emailPattern.test(Email);
 };
 
 // Register Function
 const register = async (req, res) => {
-    const { userName, email, password } = cleanInput(req.body);
+    const { userName,Email, Password } = cleanInput(req.body);
 
     // Log incoming request
     debugLog('Register request', req.body);
 
     try {
-        if (!userName || !email || !password) {
+        if (!userName || !Email || !Password) {
             return res.status(400).json({ msg: 'Username, email, and password are required' });
         }
 
@@ -239,11 +239,11 @@ const register = async (req, res) => {
             return res.status(400).json({ msg: 'Username must contain only letters and have at least one uppercase or one lowercase letter' });
         }
 
-        if (!validateEmail(email)) {
+        if (!validateEmail(Email)) {
             return res.status(400).json({ msg: 'Invalid email format' });
         }
 
-        if (!validatePassword(password)) {
+        if (!validatePassword(Password)) {
             return res.status(400).json({ msg: 'Password must be at least 8 characters long and include at least one uppercase or lowercase letter, one number, and one special character' });
         }
 
@@ -252,10 +252,10 @@ const register = async (req, res) => {
 
         // Log input validation
         debugLog('Username', uppercaseUsername);
-        debugLog('Email', email);
-        debugLog('Password', password);
+        debugLog('Email', Email);
+        debugLog('Password', Password);
 
-        let user = await Newdata.findOne({ $or: [{ userName: uppercaseUsername }, { email }] });
+        let user = await Newdata.findOne({ $or: [{ userName: uppercaseUsername }, { Email }] });
 
         if (user) {
             return res.status(400).json({ msg: 'User already exists' });
@@ -263,8 +263,8 @@ const register = async (req, res) => {
 
         user = new Newdata({ 
             userName: uppercaseUsername,
-            email,
-            password,
+            Email,
+            Password,
         });
 
         const salt = await bcrypt.genSalt(10);
@@ -272,10 +272,10 @@ const register = async (req, res) => {
         // Log salt generation
         debugLog('Generated salt', salt);
 
-        user.password = await bcrypt.hash(password, salt);
+        user.Password = await bcrypt.hash(Password, salt);
 
         // Log password hashing
-        debugLog('Hashed password', user.password);
+        debugLog('Hashed password', user.Password);
 
         await user.save();
 
@@ -290,44 +290,32 @@ const register = async (req, res) => {
     }
 };
 
-// Login Function
-const login = async (req, res) => {
-    const { userNameOrEmail, password } = cleanInput(req.body);
 
-    // Log incoming request
-    debugLog('Login request', req.body);
+const login = async (req, res) => {
+    const { usernameOrEmail, Password } = cleanInput(req.body);
 
     try {
-        if (!userNameOrEmail || !password) {
+        if (!usernameOrEmail || !Password) {
             return res.status(400).json({ msg: 'Username/Email and password are required' });
         }
 
-        // Convert usernameOrEmail to uppercase
-        const uppercaseUsernameOrEmail = userNameOrEmail.toUpperCase();
-
-        // Log input validation
-        debugLog('Username/Email', uppercaseUsernameOrEmail);
-        debugLog('Password', password);
+        const uppercaseUsernameOrEmail = usernameOrEmail.toUpperCase();
 
         const user = await Newdata.findOne({
-            $or: [{ username: uppercaseUsernameOrEmail }, { email: userNameOrEmail }]
+            $or: [{ userName: uppercaseUsernameOrEmail }, { Email: usernameOrEmail }],
         });
 
         if (!user) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(Password, user.Password);
 
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        const payload = {
-            user: {
-                id: user.id,
-            },
-        };
+        const payload = { user: { id: user.id } };
 
         jwt.sign(
             payload,
@@ -335,23 +323,14 @@ const login = async (req, res) => {
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) {
-                    // Log JWT signing error
                     console.error('JWT Signing Error:', err.stack);
                     return res.status(500).send('Server error');
                 }
 
-                // Log generated token
-                debugLog('Generated JWT', token);
-
-                // Log successful login
-                debugLog('User logged in successfully', user);
-
-                // After successful login, redirect to membership form
                 res.json({ msg: 'Login successful, redirecting to membership form', token });
             }
         );
     } catch (error) {
-        // Log the error stack for more details
         console.error('Error during login:', error.stack);
         res.status(500).send('Server error');
     }
@@ -381,10 +360,10 @@ const generateToken = (length) => {
 };
 
 const forgotPassword = async (req, res) => {
-    const { email } = req.body;
+    const { Email } = req.body;
 
     try {
-        const user = await Newdata.findOne({ email });
+        const user = await Newdata.findOne({ Email });
 
         if (!user) {
             return res.status(400).json({ msg: 'User with this email does not exist' });
@@ -397,7 +376,7 @@ const forgotPassword = async (req, res) => {
         user.resetTokenExpiry = expiry;
         await user.save();
 
-        await sendResetEmail(user.email, token);
+        await sendResetEmail(user.Email, token);
 
         res.status(200).json({ msg: 'Password reset email sent' });
     } catch (error) {
@@ -424,7 +403,7 @@ const resetPassword = async (req, res) => {
         }
 
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(newPassword, salt);
+        user.Password = await bcrypt.hash(newPassword, salt);
         user.resetToken = undefined;
         user.resetTokenExpiry = undefined;
         await user.save();

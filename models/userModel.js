@@ -7,12 +7,12 @@ const NewdataSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  email: {
+  Email: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  Password: {
     type: String,
     required: true,
   },
