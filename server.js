@@ -2,6 +2,8 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const dataRoutes = require('./routes/dataRoutes')
+const {errorHandler} = require('./middleware/errorMiddleware')
 const dotenv = require('dotenv');
 const cors = require('cors');
 
@@ -17,6 +19,10 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use("/api",dataRoutes);
+
+//error handling middleware
+app.use(errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 4000;
