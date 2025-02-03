@@ -143,81 +143,171 @@
 // importData();
 
 
+
+
+// const mongoose = require('mongoose');
+// const fs = require('fs');
+// const path = require('path');
+// const connectDB = require("./config/db");
+
+// // Ensure correct model import
+// const { ALM } = require('./models/almModel'); 
+// const { Qtest } = require('./models/almModel'); 
+
+// // Database name
+// const DATABASE_NAME = "Practice";
+
+// // Connect to MongoDB
+// connectDB();
+
+// const uploadInBatches = async (Model, dataFile, batchSize = 14) => {
+//     try {
+//         const dataExists = await checkExistingData(Model);
+
+//         if (dataExists) {
+//             console.log(" Data already exists. Skipping upload.");
+//             return;
+//         }
+
+//         console.log("Model:", Model.modelName, "File:", dataFile);
+
+//         const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8')); // Read JSON file
+//         console.log(` Starting bulk upload for ${dataFile}, Total Records: ${data.length}`);
+
+//         for (let i = 0; i < data.length; i += batchSize) {
+//             const batch = data.slice(i, i + batchSize); // Split data into batches
+
+//             await Model.insertMany(batch, { ordered: false })
+//                 .then(() => console.log(` Uploaded batch ${Math.floor(i / batchSize) + 1}`))
+//                 .catch((err) => console.error(` Error in batch ${Math.floor(i / batchSize) + 1}:`, err.message));
+//         }
+
+//         console.log(` Bulk upload completed for ${Model.collection.name} in database ${DATABASE_NAME}`);
+//     } catch (error) {
+//         console.error(" Error in upload process:", error.message);
+//     }
+// };
+
+// const checkExistingData = async (Model) => {
+//     try {
+//         const count = await Model.countDocuments();
+//         if (count > 0) {
+//             console.log(` Collection '${Model.collection.name}' already has ${count} documents.`);
+//             return true;
+//         }
+//     } catch (error) {
+//         console.error(" Error checking existing data:", error.message);
+//     }
+//     return false; // No data
+// };
+
+// const importData = async () => {
+//     try {
+//         await mongoose.connection.once('open', async () => {
+//             console.log(" MongoDB connected");
+
+//             const uploadAll = await Promise.all([
+//                 uploadInBatches(ALM, path.join(__dirname, './data/users.json')),
+//                 uploadInBatches(Qtest, path.join(__dirname, './data/qtest.json')),              
+//             ]);
+    
+
+//             console.log(' Bulk upload completed successfully');
+//             mongoose.connection.close();
+//         });
+//     } catch (error) {
+//         console.error(' Bulk upload failed:', error);
+//         mongoose.connection.close();
+//     }
+// };
+
+// // Start Import
+// importData();
+
+
+
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const connectDB = require("./config/db");
 
 // Ensure correct model import
-const { ALM } = require('./models/almModel'); // Adjust this based on your file structure
-const { Qtest } = require('./models/almModel'); // Adjust this if you have a Qtest model
+const { ALMdata } = require('./models/almModel'); 
+const { Qtest } = require('./models/almModel'); 
 
 // Database name
-const DATABASE_NAME = "Practice";
+const DATABASE_NAME = "datafile";
 
 // Connect to MongoDB
 connectDB();
 
-const uploadInBatches = async (Model, dataFile, batchSize = 20) => {
+// Function to upload data in batches
+const uploadInBatches = async (Model, dataFile, batchSize = 14) => {
     try {
         const dataExists = await checkExistingData(Model);
 
         if (dataExists) {
-            console.log(" Data already exists. Skipping upload.");
+            console.log("Data already exists. Skipping upload.");
             return;
         }
 
         console.log("Model:", Model.modelName, "File:", dataFile);
 
         const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8')); // Read JSON file
-        console.log(` Starting bulk upload for ${dataFile}, Total Records: ${data.length}`);
+        console.log(`Starting bulk upload for ${dataFile}, Total Records: ${data.length}`);
 
         for (let i = 0; i < data.length; i += batchSize) {
             const batch = data.slice(i, i + batchSize); // Split data into batches
 
             await Model.insertMany(batch, { ordered: false })
-                .then(() => console.log(` Uploaded batch ${Math.floor(i / batchSize) + 1}`))
-                .catch((err) => console.error(` Error in batch ${Math.floor(i / batchSize) + 1}:`, err.message));
+                .then((result) => {
+                    console.log(`Uploaded batch ${Math.floor(i / batchSize) + 1}`, result);
+                })
+                .catch((err) => {
+                    console.error(`Error in batch ${Math.floor(i / batchSize) + 1}:`, err.message);
+                });
         }
 
-        console.log(` Bulk upload completed for ${Model.collection.name} in database ${DATABASE_NAME}`);
+        console.log(`Bulk upload completed for ${Model.collection.name} in database ${DATABASE_NAME}`);
     } catch (error) {
-        console.error(" Error in upload process:", error.message);
+        console.error("Error in upload process:", error.message);
     }
 };
 
+// Function to check if data already exists in the model
 const checkExistingData = async (Model) => {
     try {
         const count = await Model.countDocuments();
         if (count > 0) {
-            console.log(` Collection '${Model.collection.name}' already has ${count} documents.`);
+            console.log(`Collection '${Model.collection.name}' already has ${count} documents.`);
             return true;
         }
     } catch (error) {
-        console.error(" Error checking existing data:", error.message);
+        console.error("Error checking existing data:", error.message);
     }
     return false; // No data
 };
 
+// Main function to start the import process
 const importData = async () => {
     try {
         await mongoose.connection.once('open', async () => {
-            console.log(" MongoDB connected");
+            console.log("MongoDB connected");
 
+            // Upload data in batches for ALM and Qtest models
             const uploadAll = await Promise.all([
-                uploadInBatches(ALM, path.join(__dirname, './data/users.json')),
-                uploadInBatches(Qtest, path.join(__dirname, './data/qtest.json')),              
+                uploadInBatches(ALMdata, path.join(__dirname, './data/users.json')),
+                uploadInBatches(Qtest, path.join(__dirname, './data/qtest.json'))
             ]);
-    
 
-            console.log(' Bulk upload completed successfully');
+            console.log('Bulk upload completed successfully');
             mongoose.connection.close();
         });
     } catch (error) {
-        console.error(' Bulk upload failed:', error);
+        console.error('Bulk upload failed:', error);
         mongoose.connection.close();
     }
 };
 
-// Start Import
+// Start import
 importData();

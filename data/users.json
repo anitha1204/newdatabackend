@@ -1,86 +1,62 @@
 [
     {
-        "id": 1,
+        "A_ids": 100,
         "label": "Attachment",
         "name": "has-attachments",
         "physicalName": "REL_HAS_ATTACHMENTS"
     },
     {
-        "id": 2,
+        "A_ids": 200,
         "label": "Combo Custom",
         "name": "user-04",
         "physicalName": "REL_USER_04"
     },
     {
-        "id": 3,
+        "A_ids": 300,
         "label": "Count of milestone in release",
         "name": "milestones-count",
         "physicalName": "REL_MILESTONES_COUNT"
     },
     {
-        "id": 4,
+        "A_ids": 400,
         "label": "Count of scope items in release",
         "name": "scope-items-count",
         "physicalName": "REL_SCOPE_ITEMS_COUNT"
     },
     {
-        "id": 5,
+        "A_ids": 500,
         "label": "Date Custom",
         "name": "user-02",
         "physicalName": "REL_USER_02"
     },
     {
-        "id": 6,
+        "A_ids": 600,
         "label": "Description",
         "name": "description",
         "physicalName": "REL_DESCRIPTION"
     },
     {
-        "id": 7,
+        "A_ids": 700,
         "label": "End Date",
         "name": "end-date",
         "physicalName": "REL_END_DATE"
     },
     {
-        "id": 8,
+        "A_ids": 800,
         "label": "HTML Custom",
         "name": "user-05",
         "physicalName": "REL_USER_05"
     },
     {
-        "id": 9,
+        "A_ids": 900,
         "label": "Modified",
         "name": "last-modified",
         "physicalName": "REL_VTS"
     },
     {
-        "id": 10,
+        "A_ids": 1000,
         "label": "Name",
         "name": "name",
         "physicalName": "REL_NAME"
-    },
-    {
-        "id": 11,
-        "label": "Release Folder ID",
-        "name": "parent-id",
-        "physicalName": "REL_PARENT_ID"
-    },
-    {
-        "id": 12,
-        "label": "Release ID",
-        "name": "id",
-        "physicalName": "REL_ID"
-    },
-    {
-        "id": 13,
-        "label": "Requirement count",
-        "name": "req-count",
-        "physicalName": "REL_REQ_COUNT"
-    },
-    {
-        "id": 14,
-        "label": "Start Date",
-        "name": "start-date",
-        "physicalName": "REL_START_DATE"
     }
-]
+  ]

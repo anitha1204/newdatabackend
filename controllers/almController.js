@@ -1,4 +1,4 @@
-const { ALM } = require("../models/almModel");
+const { ALMdata } = require("../models/almModel");
 
 exports.createALM = async (req, res) => {
     try {

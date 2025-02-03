@@ -1,143 +1,52 @@
 [
-    {
-        "_id": "qtestId1",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId2",
-        "lastModifiedDate":"18/02/2024",
-        "description":"Good",
-        "startDate":"15/08/2023",
-        "endDate":"25/07/2023"
-    },
-    {
-        "_id": "qtestId3",
-        "lastModifiedDate":"13/07/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId4",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId5",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId6",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId7",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId8",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId9",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId10",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId11",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId12",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId13",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId14",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId15",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId16",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId17",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId18",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId19",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "qtestId20",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    }
-   
+  {
+      "ids": 1,
+      "id": 1741971,
+      "label": "Status"
+  },
+  {
+      "ids": 2,
+      "id": 1741972,
+      "label": "Start Date"
+  },
+  {
+      "ids": 3,
+      "id": 1741975,
+      "label": "End Date"
+  },
+  {
+      "ids": 4,
+      "id": 1741976,
+      "label": "Description"
+  },
+  {
+      "ids": 5,
+      "id": 1741977,
+      "label": "Release Note"
+  },
+  {
+      "ids": 6,
+      "id": 1741964,
+      "label": "Date Custom"
+  },
+  {
+      "ids": 7,
+      "id": 1741965,
+      "label": "String Custom"
+  },
+  {
+      "ids": 8,
+      "id": 1741966,
+      "label": "HTML Custom"
+  },
+  {
+      "ids": 9,
+      "id": 1741967,
+      "label": "User Custom"
+  },
+  {
+      "ids": 10,
+      "id": 1741968,
+      "label": "Combo Custom"
+  }
 ]
