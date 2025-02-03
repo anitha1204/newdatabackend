@@ -43,7 +43,7 @@ const qtestSchema = new Schema({
   endDate: { type: String, required: true }
 });
 
-const Alm = mongoose.model("ALM", almSchema);
+const ALM = mongoose.model("ALM", almSchema);
 const Qtest = mongoose.model("Qtest", qtestSchema);
 
-module.exports = { Alm, Qtest };  // ✅ Correct export format
+module.exports = { ALM, Qtest };  // Correct export format
