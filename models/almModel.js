@@ -28,11 +28,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const almSchema = new Schema({
-  _id: { type: String, required: true },
-  lastModifiedDate: { type: String, required: true },  // Consistent camelCase
-  description: { type: String, required: true },
-  startDate: { type: String, required: true },  // Standardized naming
-  endDate: { type: String, required: true }
+  id: { type: String, required: true },
+  label: { type: String, required: true },  // Consistent camelCase
+  name: { type: String, required: true },
+  physicalNmae: { type: String, required: true }
 });
 
 const qtestSchema = new Schema({

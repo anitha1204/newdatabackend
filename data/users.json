@@ -1,143 +1,86 @@
 [
     {
-        "_id": "userId1",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 1,
+        "label": "Attachment",
+        "name": "has-attachments",
+        "physicalName": "REL_HAS_ATTACHMENTS"
     },
     {
-        "_id": "userId2",
-        "lastModifiedDate":"18/02/2024",
-        "description":"Good",
-        "startDate":"15/08/2023",
-        "endDate":"25/07/2023"
+        "id": 2,
+        "label": "Combo Custom",
+        "name": "user-04",
+        "physicalName": "REL_USER_04"
     },
     {
-        "_id": "userId3",
-        "lastModifiedDate":"13/07/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 3,
+        "label": "Count of milestone in release",
+        "name": "milestones-count",
+        "physicalName": "REL_MILESTONES_COUNT"
     },
     {
-        "_id": "userId4",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 4,
+        "label": "Count of scope items in release",
+        "name": "scope-items-count",
+        "physicalName": "REL_SCOPE_ITEMS_COUNT"
     },
     {
-        "_id": "userId5",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 5,
+        "label": "Date Custom",
+        "name": "user-02",
+        "physicalName": "REL_USER_02"
     },
     {
-        "_id": "userId6",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 6,
+        "label": "Description",
+        "name": "description",
+        "physicalName": "REL_DESCRIPTION"
     },
     {
-        "_id": "userId7",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 7,
+        "label": "End Date",
+        "name": "end-date",
+        "physicalName": "REL_END_DATE"
     },
     {
-        "_id": "userId8",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 8,
+        "label": "HTML Custom",
+        "name": "user-05",
+        "physicalName": "REL_USER_05"
     },
     {
-        "_id": "userId9",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 9,
+        "label": "Modified",
+        "name": "last-modified",
+        "physicalName": "REL_VTS"
     },
     {
-        "_id": "userId10",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 10,
+        "label": "Name",
+        "name": "name",
+        "physicalName": "REL_NAME"
     },
     {
-        "_id": "userId11",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 11,
+        "label": "Release Folder ID",
+        "name": "parent-id",
+        "physicalName": "REL_PARENT_ID"
     },
     {
-        "_id": "userId12",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 12,
+        "label": "Release ID",
+        "name": "id",
+        "physicalName": "REL_ID"
     },
     {
-        "_id": "userId13",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 13,
+        "label": "Requirement count",
+        "name": "req-count",
+        "physicalName": "REL_REQ_COUNT"
     },
     {
-        "_id": "userId14",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "userId15",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "userId16",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "userId17",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "userId18",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "userId19",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
-    },
-    {
-        "_id": "userId20",
-        "lastModifiedDate":"12/05/2023",
-        "description":"Good",
-        "startDate":"15/04/2023",
-        "endDate":"30/06/2023"
+        "id": 14,
+        "label": "Start Date",
+        "name": "start-date",
+        "physicalName": "REL_START_DATE"
     }
-   
 ]

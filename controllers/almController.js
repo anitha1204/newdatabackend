@@ -2,6 +2,12 @@ const { ALM } = require("../models/almModel");
 
 exports.createALM = async (req, res) => {
     try {
+        // Check if an ALM record with the same _id already exists
+        const existingALM = await ALM.findById(req.body._id);
+        if (existingALM) {
+            return res.status(400).json({ message: "ALM record with this ID already exists" });
+        }
+
         const newALM = new ALM(req.body);
         await newALM.save();
         res.status(201).json({ message: "ALM record created successfully", data: newALM });
@@ -9,6 +15,7 @@ exports.createALM = async (req, res) => {
         res.status(500).json({ message: "Error creating ALM record", error: err.message });
     }
 };
+
 
 exports.getAllALM = async (req, res) => {
     try {
