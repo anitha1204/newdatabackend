@@ -1,91 +1,111 @@
 [
     {
-        "_ids": 1,
+        "A_ids": 1,
         "label": "Attachment",
         "name": "has-attachments",
         "physicalName": "REL_HAS_ATTACHMENTS"
     },
     {
-        "_ids": 2,
+        "A_ids": 2,
         "label": "Start Date",
         "name": "start-date",
         "physicalName": "REL_START_DATE"
        
     },
     {
-        "_ids": 3,
+        "A_ids": 3,
         "label": "End Date",
         "name": "end-date",
         "physicalName": "REL_END_DATE"
        
     },
     {
-        "_ids": 4,
+        "A_ids": 4,
         "label": "Description",
         "name": "description",
         "physicalName": "REL_DESCRIPTION"
        
     },
     {
-        "_ids": 5,
+        "A_ids": 5,
         "label": "Count of scope items in release",
         "name": "scope-items-count",
         "physicalName": "REL_SCOPE_ITEMS_COUNT"
     },
     {
-        "_ids": 6,
+        "A_ids": 6,
         "label": "Date Custom",
         "name": "user-02",
         "physicalName": "REL_USER_02"
        
     },
     {
-        "_ids": 7,
-        "label": "Count of milestone in release",
-        "name": "milestones-count",
-        "physicalName": "REL_MILESTONES_COUNT"
+        "A_ids": 7,
+        "label": "String Custom",
+        "name": "user-01",
+        "physicalName": "REL_USER_01"
+       
     },
     {
-        "_ids": 8,
+        "A_ids": 8,
         "label": "HTML Custom",
         "name": "user-05",
         "physicalName": "REL_USER_05"
     },
     {
-        "_ids": 9,
-        "label": "Modified",
-        "name": "last-modified",
-        "physicalName": "REL_VTS"
+        "A_ids": 9,
+        "label": "User Custom",
+        "name": "user-03",
+        "physicalName": "REL_USER_03"
+       
     },
     {
-        "_ids": 10,
+        "A_ids": 10,
         "label": "Combo Custom",
         "name": "user-04",
         "physicalName": "REL_USER_04"
-        
+       
     },
     {
-        "_ids": 11,
+        "A_ids": 11,
         "label": "Release Folder ID",
         "name": "parent-id",
         "physicalName": "REL_PARENT_ID"
     },
     {
-        "_ids": 12,
+        "A_ids": 12,
         "label": "Release ID",
         "name": "id",
         "physicalName": "REL_ID"
     },
     {
-        "_ids": 13,
+        "A_ids": 13,
         "label": "Requirement count",
         "name": "req-count",
         "physicalName": "REL_REQ_COUNT"
     },
     {
-        "_ids": 14,
-       "label": "Name",
+        "A_ids": 14,
+        "label": "Name",
         "name": "name",
         "physicalName": "REL_NAME"
+    },
+    {
+        "A_ids": 15,
+        "label": "Count of milestone in release",
+        "name": "milestones-count",
+        "physicalName": "REL_MILESTONES_COUNT"
+    },
+    {
+        "A_ids": 16,
+        "label": "Modified",
+        "name": "last-modified",
+        "physicalName": "REL_VTS"
+    },
+    {
+        "A_ids": 17,
+        "label": "Version Stamp",
+        "name": "ver-stamp",
+        "physicalName": "REL_VER_STAMP"
     }
-  ]
+]
