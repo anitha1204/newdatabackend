@@ -7,39 +7,43 @@
     },
     {
         "_ids": 2,
-        "label": "Combo Custom",
-        "name": "user-04",
-        "physicalName": "REL_USER_04"
+        "label": "Start Date",
+        "name": "start-date",
+        "physicalName": "REL_START_DATE"
+       
     },
     {
         "_ids": 3,
-        "label": "Count of milestone in release",
-        "name": "milestones-count",
-        "physicalName": "REL_MILESTONES_COUNT"
+        "label": "End Date",
+        "name": "end-date",
+        "physicalName": "REL_END_DATE"
+       
     },
     {
         "_ids": 4,
+        "label": "Description",
+        "name": "description",
+        "physicalName": "REL_DESCRIPTION"
+       
+    },
+    {
+        "_ids": 5,
         "label": "Count of scope items in release",
         "name": "scope-items-count",
         "physicalName": "REL_SCOPE_ITEMS_COUNT"
     },
     {
-        "_ids": 5,
+        "_ids": 6,
         "label": "Date Custom",
         "name": "user-02",
         "physicalName": "REL_USER_02"
-    },
-    {
-        "_ids": 6,
-        "label": "Description",
-        "name": "description",
-        "physicalName": "REL_DESCRIPTION"
+       
     },
     {
         "_ids": 7,
-        "label": "End Date",
-        "name": "end-date",
-        "physicalName": "REL_END_DATE"
+        "label": "Count of milestone in release",
+        "name": "milestones-count",
+        "physicalName": "REL_MILESTONES_COUNT"
     },
     {
         "_ids": 8,
@@ -55,9 +59,10 @@
     },
     {
         "_ids": 10,
-        "label": "Name",
-        "name": "name",
-        "physicalName": "REL_NAME"
+        "label": "Combo Custom",
+        "name": "user-04",
+        "physicalName": "REL_USER_04"
+        
     },
     {
         "_ids": 11,
@@ -79,8 +84,8 @@
     },
     {
         "_ids": 14,
-        "label": "Start Date",
-        "name": "start-date",
-        "physicalName": "REL_START_DATE"
+       "label": "Name",
+        "name": "name",
+        "physicalName": "REL_NAME"
     }
   ]
