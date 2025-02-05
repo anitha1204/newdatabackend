@@ -11,9 +11,9 @@ const almSchema = new Schema({
 
 // Qtest schema definition
 const qtestSchema = new Schema({
-  ids: { type: Number, required: true },
   id: { type: Number, required: true },
-  label: { type: String, required: true }
+  label: { type: String, required: true },
+  name: { type: String, required: true }
 });
 
 // Models

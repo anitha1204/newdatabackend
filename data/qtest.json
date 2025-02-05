@@ -1,52 +1,61 @@
 [
   {
-      "ids": 1,
       "id": 1741971,
+      "name": "has-attachments",
       "label": "Status"
   },
   {
-      "ids": 2,
+      
       "id": 1741972,
+      "name": "has-attachments",
       "label": "Start Date"
   },
   {
-      "ids": 3,
+     
       "id": 1741975,
+      "name": "has-attachments",
       "label": "End Date"
   },
   {
-      "ids": 4,
+     
       "id": 1741976,
+      "name": "has-attachments",
       "label": "Description"
   },
   {
-      "ids": 5,
+      
       "id": 1741977,
+      "name": "has-attachments",
       "label": "Release Note"
   },
   {
-      "ids": 6,
+    
       "id": 1741964,
+      "name": "has-attachments",
       "label": "Date Custom"
   },
   {
-      "ids": 7,
+      
       "id": 1741965,
+      "name": "has-attachments",
       "label": "String Custom"
   },
   {
-      "ids": 8,
+     
       "id": 1741966,
+      "name": "has-attachments",
       "label": "HTML Custom"
   },
   {
-      "ids": 9,
+      
       "id": 1741967,
+      "name": "has-attachments",
       "label": "User Custom"
   },
   {
-      "ids": 10,
+     
       "id": 1741968,
+      "name": "has-attachments",
       "label": "Combo Custom"
   }
 ]
