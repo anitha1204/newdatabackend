@@ -1,7 +1,7 @@
 [
   {
       "id": 1741971,
-      "name": "has-attachments",
+      "name": "attachments",
       "label": "Status"
   },
   {
@@ -37,19 +37,19 @@
   {
       
       "id": 1741965,
-      "name": "has-attachments",
+      "name": "has-attach",
       "label": "String Custom"
   },
   {
      
       "id": 1741966,
-      "name": "has-attachments",
+      "name": "has",
       "label": "HTML Custom"
   },
   {
       
       "id": 1741967,
-      "name": "has-attachments",
+      "name": "-attachments",
       "label": "User Custom"
   },
   {
