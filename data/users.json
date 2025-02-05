@@ -1,7 +1,7 @@
 [
     {
         "_ids": 1,
-        "label": "Attachment",
+        "label": "Status",
         "name": "has-attachments",
         "physicalName": "REL_HAS_ATTACHMENTS"
     },
