@@ -69,60 +69,32 @@
 
 
 const Mapping = require("../models/Mapping");
-const Valuefile = require("../models/almModel");
-const MappedResult = require("../models/MappedResult");
 
-// Save a new mapping with value from Valuefile
-exports.saveMapping = async (req, res) => {
-  try {
-    const { almId, almName, qtestId, qtestName, color } = req.body;
-
-    // Check if almName exists in Valuefile
-    const valuefileData = await Valuefile.findOne({ "entities.Fields.Name": almName });
-
-    let matchedValue = "";
-    if (valuefileData) {
-      const field = valuefileData.entities
-        .flatMap(entity => entity.Fields)
-        .find(field => field.Name === almName);
-
-      if (field && field.values.length > 0) {
-        matchedValue = field.values[0].value;
-      }
-    }
-
-    // Save mapping with matched value
-    const newMapping = new Mapping({ almId, almName, qtestId, qtestName, color, value: matchedValue });
-    await newMapping.save();
-
-    // Save matched value in separate collection if matched
-    if (matchedValue) {
-      const newMappedResult = new MappedResult({ almName, matchedValue });
-      await newMappedResult.save();
-    }
-
-    res.status(201).json({ message: "Mapping saved successfully", mapping: newMapping });
-  } catch (error) {
-    res.status(500).json({ message: "Error saving mapping", error });
-  }
-};
-
-// Get all mappings
 exports.getMappings = async (req, res) => {
   try {
     const mappings = await Mapping.find();
-    res.status(200).json(mappings);
+    res.json(mappings);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching mappings", error });
+    res.status(500).json({ error: "Error fetching mappings" });
   }
 };
 
-// Get all mapped results
-exports.getMappedResults = async (req, res) => {
+exports.saveMapping = async (req, res) => {
+  const { almId, almName, qtestId, qtestName, color } = req.body;
+
   try {
-    const results = await MappedResult.find();
-    res.status(200).json(results);
+    // Check if mapping already exists
+    const existingMapping = await Mapping.findOne({ almId, qtestId });
+
+    if (existingMapping) {
+      return res.status(400).json({ message: "Mapping already exists" });
+    }
+
+    const newMapping = new Mapping({ almId, almName, qtestId, qtestName, color });
+    await newMapping.save();
+
+    res.status(201).json({ message: "Mapping saved successfully", data: newMapping });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching mapped results", error });
+    res.status(500).json({ error: "Error saving mapping" });
   }
 };

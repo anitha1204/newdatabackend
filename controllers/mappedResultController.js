@@ -1,44 +1,25 @@
-const Mapping = require("../models/Mapping");
-const Valuefile = require("../models/almModel");
 const MappedResult = require("../models/MappedResult");
+const ValueFile = require("../models/ValueFile");
 
-const mapAndStoreValues = async (req, res) => {
+exports.saveMappedResult = async (req, res) => {
+  const { almName, value } = req.body;
+
   try {
-    const mappings = await Mapping.find();
-    const valuefiles = await Valuefile.find();
-
-    if (!mappings.length || !valuefiles.length) {
-      return res.status(400).json({ message: "No mappings or valuefiles found" });
-    }
-
-    let mappedResults = [];
-
-    mappings.forEach(mapping => {
-      valuefiles.forEach(valuefile => {
-        valuefile.entities.forEach(entity => {
-          entity.Fields.forEach(field => {
-            if (mapping.almName === field.Name) {
-              field.values.forEach(val => {
-                mappedResults.push({ almName: mapping.almName, value: val.value });
-              });
-            }
-          });
-        });
-      });
+    // Check if almName exists in ValueFile
+    const valueFileEntry = await ValueFile.findOne({
+      "entities.Fields.Name": almName
     });
 
-    console.log("Mapped Results:", mappedResults); // Debugging log
-
-    if (mappedResults.length === 0) {
-      return res.status(400).json({ message: "No matching values found" });
+    if (!valueFileEntry) {
+      return res.status(400).json({ message: "almName not found in ValueFile" });
     }
 
-    await MappedResult.insertMany(mappedResults);
-    res.status(201).json({ message: "Mapping stored successfully", data: mappedResults });
+    // Save the mapped result
+    const newMappedResult = new MappedResult({ almName, value });
+    await newMappedResult.save();
+
+    res.status(201).json({ message: "Mapped result saved successfully", data: newMappedResult });
   } catch (error) {
-    console.error("Error mapping values:", error);
-    res.status(500).json({ message: "Error mapping values", error });
+    res.status(500).json({ error: "Error saving mapped result" });
   }
 };
-
-module.exports = { mapAndStoreValues };

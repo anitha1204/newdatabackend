@@ -30,8 +30,7 @@ app.use("/api/alm", almRoutes);
 app.use("/api/qtest", qtestRoutes);
 app.use("/api/mappings", mappingRoutes);
 app.use('/api', valuefileRoutes);
-app.use("/api/mappedResults", mappedResultRoutes);
-
+app.use("/api/mapped-results", mappedResultRoutes);
 
 // Start server
 const PORT = process.env.PORT || 4000;

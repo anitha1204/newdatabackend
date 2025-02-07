@@ -1,9 +1,9 @@
 const express = require("express");
-const { saveMapping, getMappings } = require("../controllers/mappingController");
+const { getMappings, saveMapping } = require("../controllers/mappingController");
 
 const router = express.Router();
 
-router.post("/save-mapping", saveMapping);
 router.get("/get-mappings", getMappings);
+router.post("/save-mapping", saveMapping);
 
 module.exports = router;
