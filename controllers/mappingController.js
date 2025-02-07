@@ -6,20 +6,20 @@ exports.saveMapping = async (req, res) => {
   try {
     const { almId, almName, qtestId, qtestName, color } = req.body;
 
-    // Check if ALM Name exists in Valuefile collection
-    const valuefileData = await Valuefile.findOne({
-        "entities.Fields.Name": almName,
-    });
+    // // Check if ALM Name exists in Valuefile collection
+    // const valuefileData = await Valuefile.findOne({
+    //     "entities.Fields.Name": almName,
+    // });
 
-    if (!valuefileData) {
-        return res.status(400).json({ message: "ALM Name not found in Valuefile" });
-    }
+    // if (!valuefileData) {
+    //     return res.status(400).json({ message: "ALM Name not found in Valuefile" });
+    // }
 
-    // Check if the mapping already exists
-    const existingMapping = await Mapping.findOne({ almId, qtestId });
-    if (existingMapping) {
-        return res.status(400).json({ message: "Mapping already exists" });
-    }
+    // // Check if the mapping already exists
+    // const existingMapping = await Mapping.findOne({ almId, qtestId });
+    // if (existingMapping) {
+    //     return res.status(400).json({ message: "Mapping already exists" });
+    // }
 
     // Save new mapping
     const newMapping = new Mapping({
