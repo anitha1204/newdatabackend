@@ -10,6 +10,7 @@ const almRoutes = require("./routes/almRoutes");
 const qtestRoutes = require("./routes/qtestRoutes");
 const mappingRoutes = require('./routes/mappingRoutes');
 const valuefileRoutes = require('./routes/valuefileRoutes');
+const newfileRoutes = require('./routes/newfileRoutes') 
 const dotenv = require('dotenv');
 const cors = require('cors');
 
@@ -29,6 +30,7 @@ app.use("/api/alm", almRoutes);
 app.use("/api/qtest", qtestRoutes);
 app.use("/api/mappings", mappingRoutes);
 app.use('/api', valuefileRoutes);
+app.use('/api/new', newfileRoutes);
 
 // Start server
 const PORT = process.env.PORT || 4000;
