@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
-const MappedResultSchema = new Schema({
+const mappedResultSchema = new mongoose.Schema({
   almName: { type: String, required: true },
-  value: { type: String, required: true }
+  matchedValue: { type: String, required: true },
 });
 
-module.exports = mongoose.model("MappedResult", MappedResultSchema);
+module.exports = mongoose.model("MappedResult", mappedResultSchema);

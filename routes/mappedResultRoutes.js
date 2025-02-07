@@ -1,8 +1,8 @@
 const express = require("express");
-const { mapAndStoreValues } = require("../controllers/mappedResultController");
+const { getMappedResults } = require("../controllers/mappingController");
 
 const router = express.Router();
 
-router.post("/map-values", mapAndStoreValues);
+router.get("/mapped-results", getMappedResults);
 
 module.exports = router;
