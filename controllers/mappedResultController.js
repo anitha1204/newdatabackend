@@ -1,8 +1,8 @@
-const MappedResult = require("../models/MappedResult");
+const MappedResult = require("../models/StoredMappings");
 const ValueFile = require("../models/almModel");
 
 exports.saveMappedResult = async (req, res) => {
-  const { almName, value } = req.body;
+  const { almName, Name } = req.body;
 
   try {
     console.log("Received Data:", req.body); // Debugging Log
@@ -19,7 +19,7 @@ exports.saveMappedResult = async (req, res) => {
     }
 
     // Save the mapped result
-    const newMappedResult = new MappedResult({ almName, value });
+    const newMappedResult = new MappedResult({ almName, Name });
     await newMappedResult.save();
 
     console.log("Mapped Result Saved:", newMappedResult); // Debugging Log
