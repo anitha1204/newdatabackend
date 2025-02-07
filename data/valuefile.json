@@ -1,0 +1,148 @@
+{
+    "entities": [
+        {
+            "Fields": [
+                {
+                    "Name": "req-count",
+                    "values": [
+                        {
+                            "value": "4"
+                        }
+                    ]
+                },
+                {
+                    "Name": "ver-stamp",
+                    "values": [
+                        {
+                            "value": "2"
+                        }
+                    ]
+                },
+                {
+                    "Name": "description",
+                    "values": [
+                        {
+                            "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test</span></font>\n</div> \n</body></html>"
+                        }
+                    ]
+                },
+                {
+                    "Name": "scope-items-count",
+                    "values": [
+                        {
+                            "value": "0"
+                        }
+                    ]
+                },
+                {
+                    "Name": "start-date",
+                    "values": [
+                        {
+                            "value": "2025-01-25"
+                        }
+                    ]
+                },
+                {
+                    "Name": "has-attachments",
+                    "values": [
+                        {}
+                    ]
+                },
+                {
+                    "Name": "end-date",
+                    "values": [
+                        {
+                            "value": "2025-01-25"
+                        }
+                    ]
+                },
+                {
+                    "Name": "last-modified",
+                    "values": [
+                        {
+                            "value": "2025-01-27 22:17:55"
+                        }
+                    ]
+                },
+                {
+                    "Name": "name",
+                    "values": [
+                        {
+                            "value": "sammple New Release"
+                        }
+                    ]
+                },
+                {
+                    "Name": "user-01",
+                    "values": [
+                        {
+                            "value": "This is String field"
+                        }
+                    ]
+                },
+                {
+                    "Name": "milestones-count",
+                    "values": [
+                        {
+                            "value": "0"
+                        }
+                    ]
+                },
+                {
+                    "Name": "id",
+                    "values": [
+                        {
+                            "value": "1008"
+                        }
+                    ]
+                },
+                {
+                    "Name": "parent-id",
+                    "values": [
+                        {
+                            "value": "1"
+                        }
+                    ]
+                },
+                {
+                    "Name": "user-04",
+                    "values": [
+                        {
+                            "value": "Sample 1"
+                        },
+                        {
+                            "value": "Sample 3"
+                        }
+                    ]
+                },
+                {
+                    "Name": "user-05",
+                    "values": [
+                        {
+                            "value": "<html><body>\nThis is HTML field\n</body></html>"
+                        }
+                    ]
+                },
+                {
+                    "Name": "user-02",
+                    "values": [
+                        {
+                            "value": "2025-01-25"
+                        }
+                    ]
+                },
+                {
+                    "Name": "user-03",
+                    "values": [
+                        {
+                            "value": "krishnaprasanth"
+                        }
+                    ]
+                }
+            ],
+            "Type": "release",
+            "children-count": 0
+        }
+    ],
+    "TotalResults": 1
+}
