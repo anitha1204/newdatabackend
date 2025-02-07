@@ -32,7 +32,7 @@ exports.saveMapping = async (req, res) => {
 
     // Store Name, Value, and qtestId in StoredMapping collection
     const storedMapping = new StoredMapping({
-      name: valuefileData.entities.Fields.Name,
+      Name: valuefileData.entities.Fields.Name,
       value: valuefileData.entities.Fields.Value,
       qtestId
     });
@@ -57,6 +57,7 @@ exports.saveMapping = async (req, res) => {
 // };
 
 
+
 exports.getStoredMappings = async (req, res) => {
   try {
     const storedMappings = await StoredMapping.find();
@@ -65,6 +66,3 @@ exports.getStoredMappings = async (req, res) => {
     res.status(500).json({ message: "Error fetching stored mappings", error });
   }
 };
-
-
-
