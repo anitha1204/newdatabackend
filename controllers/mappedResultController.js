@@ -1,5 +1,5 @@
 const MappedResult = require("../models/MappedResult");
-const ValueFile = require("../models/ValueFile");
+const ValueFile = require("../models/almModel");
 
 exports.saveMappedResult = async (req, res) => {
   const { almName, value } = req.body;
