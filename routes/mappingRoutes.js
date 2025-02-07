@@ -4,6 +4,6 @@ const { getStoredMappings, saveMapping } = require("../controllers/mappingContro
 const router = express.Router();
 
 router.get("/get-stored-mappings", getStoredMappings);
-router.post("/save-mapping", saveMapping);
+router.post("/saveMapping", saveMapping);
 
 module.exports = router;
