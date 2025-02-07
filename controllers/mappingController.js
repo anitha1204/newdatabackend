@@ -4,7 +4,7 @@ const Mapping = require("../models/Mapping");
 
 exports.saveMapping = async (req, res) => {
     try {
-        const mappings = req.body; // Expecting an array of mappings
+        const { mappings } = req.body; // Expecting mappings inside an object
 
         if (!Array.isArray(mappings) || mappings.length === 0) {
             return res.status(400).json({ error: "Mappings array is required" });
