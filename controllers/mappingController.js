@@ -38,15 +38,47 @@ exports.saveMapping = async (req, res) => {
 }
 };
 
-// Get all mappings
-exports.getMappings = async (req, res) => {
-  try {
-    const mappings = await Mapping.find();
-    res.status(200).json(mappings);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching mappings", error });
-  }
-};
+  // Get all mappings
+  exports.getMappings = async (req, res) => {
+    try {
+      const mappings = await Mapping.find();
+      res.status(200).json(mappings);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching mappings", error });
+    }
+  };
+
+
+  const validateAndSaveMappings = async (req, res) => {
+    try {
+      const { mappings } = req.body;
+  
+      for (const mapping of mappings) {
+        // Check if almName exists in MongoDB
+        const existingAlm = await Valuefile.findOne({ name: mapping.almName });
+  
+        if (!existingAlm) {
+          return res.status(400).json({
+            message: `ALM Name "${mapping.almName}" does not exist in the database.`,
+          });
+        }
+  
+        // Save valid mapping to MongoDB
+        await Valuefile.create({
+          name: mapping.almName,
+          value: mapping.qtestName, // Store the mapped qTest value
+        });
+      }
+  
+      res.status(200).json({ message: "Mappings validated and stored successfully!" });
+    } catch (error) {
+      res.status(500).json({ message: "Error validating mappings", error });
+    }
+  };
+  
+  module.exports = {
+    validateAndSaveMappings,
+  };
 
 
 
