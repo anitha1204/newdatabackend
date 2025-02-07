@@ -27,37 +27,30 @@
 const Mapping = require("../models/Mapping");
 const Valuefile = require("../models/almModel");
 
-// Save a new mapping and store the value from Valuefile if almName matches
+// Save a new mapping with value from Valuefile
 exports.saveMapping = async (req, res) => {
   try {
     const { almId, almName, qtestId, qtestName, color } = req.body;
 
-    // Find the corresponding value in Valuefile where Name matches almName
-    const valuefileEntry = await Valuefile.findOne({ "entities.Fields.Name": almName });
+    // Check if almName exists in Valuefile
+    const valuefileData = await Valuefile.findOne({ "entities.Fields.Name": almName });
 
-    let storedValue = "";
-    if (valuefileEntry) {
-      // Extract the matching field
-      const matchedField = valuefileEntry.entities.flatMap(entity => entity.Fields)
+    let matchedValue = "";
+    if (valuefileData) {
+      const field = valuefileData.entities
+        .flatMap(entity => entity.Fields)
         .find(field => field.Name === almName);
-
-      if (matchedField && matchedField.values.length > 0) {
-        storedValue = matchedField.values[0].value; // Assuming you need the first value
+      
+      if (field && field.values.length > 0) {
+        matchedValue = field.values[0].value;
       }
     }
 
-    // Save the mapping with the extracted value
-    const newMapping = new Mapping({ 
-      almId, 
-      almName, 
-      qtestId, 
-      qtestName, 
-      color, 
-      value: storedValue // Store the extracted value
-    });
-
+    // Save mapping with matched value
+    const newMapping = new Mapping({ almId, almName, qtestId, qtestName, color, value: matchedValue });
     await newMapping.save();
-    res.status(201).json({ message: "Mapping saved successfully", storedValue });
+
+    res.status(201).json({ message: "Mapping saved successfully", mapping: newMapping });
   } catch (error) {
     res.status(500).json({ message: "Error saving mapping", error });
   }
