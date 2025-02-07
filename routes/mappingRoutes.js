@@ -7,4 +7,5 @@ router.get("/get-mappings", getMappings);
 router.post("/save-mapping", saveMapping);
 router.post("/validate-and-save", validateAndSaveMappings);
 
+
 module.exports = router;

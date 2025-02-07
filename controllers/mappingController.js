@@ -48,8 +48,10 @@ exports.saveMapping = async (req, res) => {
     }
   };
 
+  
 
-  const validateAndSaveMappings = async (req, res) => {
+   // Get all mappings
+   exports.validateAndSaveMappings = async (req, res) => {
     try {
       const { mappings } = req.body;
   
@@ -75,10 +77,8 @@ exports.saveMapping = async (req, res) => {
       res.status(500).json({ message: "Error validating mappings", error });
     }
   };
-  
-  module.exports = {
-    validateAndSaveMappings,
-  };
 
+
+ 
 
 
