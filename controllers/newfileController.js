@@ -102,3 +102,32 @@ exports.newfiledata = async (req, res) => {
     res.status(500).json({ message: "Error processing mapping", error });
   }
 };
+
+exports.getMappedData = async (req, res) => {
+  try {
+    const mappedData = await Newfile.find(); // Fetch all records
+
+    if (!mappedData || mappedData.length === 0) {
+      return res.status(404).json({ message: "No mapped data found" });
+    }
+
+    res.status(200).json(mappedData);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving mapped data", error });
+  }
+};
+
+exports.getMappedDataByQtestId = async (req, res) => {
+  try {
+    const { qtestId } = req.params;
+    const mappedData = await Newfile.findOne({ qtestId });
+
+    if (!mappedData) {
+      return res.status(404).json({ message: "No record found for the given qtestId" });
+    }
+
+    res.status(200).json(mappedData);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving data", error });
+  }
+};
