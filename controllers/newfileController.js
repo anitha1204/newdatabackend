@@ -5,7 +5,7 @@ const Newfile = require("../models/newfileModel");
 // Save a new mapping and store it in another collection
 exports.newfiledata = async (req, res) => {
   try {
-    const { almName ,  qtestId } = req.body;
+    const { almName ,  qtestId , qtestLabel } = req.body;
 
     // Find the entry where entities.Fields.Name matches almName
     const Newdatafile = await Valuefile.findOne(
