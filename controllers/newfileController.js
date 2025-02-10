@@ -90,7 +90,7 @@ const Newfile = require("../models/newfileModel");
 // Save a new mapping and store it in another collection
 exports.newfiledata = async (req, res) => {
   try {
-    const { almName, qtestId, qtestName } = req.body;
+    const { almName, qtestId, qtestName} = req.body;
 
     if (!almName || !qtestId || !qtestName) {
       return res.status(400).json({ message: "Missing required fields" });
