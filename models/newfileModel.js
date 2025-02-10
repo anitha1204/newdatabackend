@@ -15,16 +15,18 @@
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, default:""}, 
   properties: [
     {
       qtestName: { type: String },
       qtestId: { type: String },
       value: { type: String }
-    }]
+    }
+  ]
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);
+
 
 
 
