@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const newfileSchema = new mongoose.Schema({
  
   qtestId: String,
-  qtestLabel: String,
+  qtestName: String,
   value: String
 });
 

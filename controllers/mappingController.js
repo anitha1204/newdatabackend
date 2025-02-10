@@ -4,14 +4,13 @@ const Valuefile = require("../models/almModel");
 // Save a new mapping
 exports.saveMapping = async (req, res) => {
   try {
-    const { almId, almName, qtestLabel,  qtestId, qtestName, color } = req.body;
-    // Save new mapping
+    const { almId, almName, qtestId, qtestName, color } = req.body;
+   // Save new mapping
     const newMapping = new Mapping({
         almId,
         almName,
         qtestId,
         qtestName,
-        qtestLabel,
         color,
     });
 

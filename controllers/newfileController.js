@@ -5,7 +5,7 @@ const Newfile = require("../models/newfileModel");
 // Save a new mapping and store it in another collection
 exports.newfiledata = async (req, res) => {
   try {
-    const { almName ,  qtestId , qtestLabel } = req.body;
+    const { almName ,  qtestId , qtestName } = req.body;
 
     // Find the entry where entities.Fields.Name matches almName
     const Newdatafile = await Valuefile.findOne(
@@ -40,14 +40,14 @@ exports.newfiledata = async (req, res) => {
     // Save the matched field to Newfile collection
     const newEntry = new Newfile({
       // Name: matchedField.Name,
-      qtestLabel:qtestLabel, 
+      qtestName:qtestName, 
       qtestId: qtestId,
       value: valueToStore, // Store a single value as per schema
     });
 
     await newEntry.save();
 
-    res.status(200).json({ qtestLabel: qtestLabel , value: valueToStore,qtestId: qtestId, message: "Mapping saved successfully in Newfile" });
+    res.status(200).json({ qtestName: qtestName, value: valueToStore,qtestId: qtestId, message: "Mapping saved successfully in Newfile" });
 
   } catch (error) {
     res.status(500).json({ message: "Error processing mapping", error });
