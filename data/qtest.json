@@ -1,61 +1,42 @@
 [
-  {
-      "id": 1741971,
-      "name": "attachments",
-      "label": "Status"
-  },
-  {
-      
-      "id": 1741972,
-      "name": "has-attachments",
-      "label": "Start Date"
-  },
-  {
-     
-      "id": 1741975,
-      "name": "has-attachments",
-      "label": "End Date"
-  },
-  {
-     
-      "id": 1741976,
-      "name": "has-attachments",
-      "label": "Description"
-  },
-  {
-      
-      "id": 1741977,
-      "name": "has-attachments",
-      "label": "Release Note"
-  },
-  {
-    
-      "id": 1741964,
-      "name": "has-attachments",
-      "label": "Date Custom"
-  },
-  {
-      
-      "id": 1741965,
-      "name": "has-attach",
-      "label": "String Custom"
-  },
-  {
-     
-      "id": 1741966,
-      "name": "has",
-      "label": "HTML Custom"
-  },
-  {
-      
-      "id": 1741967,
-      "name": "-attachments",
-      "label": "User Custom"
-  },
-  {
-     
-      "id": 1741968,
-      "name": "has-attachment",
-      "label": "Combo Custom"
-  }
+    {
+        "id": 1741971,
+        "label": "Status"
+    },
+    {
+        "id": 1741972,
+        "label": "Start Date"
+    },
+    {
+        "id": 1741975,
+        "label": "End Date"
+    },
+    {
+        "id": 1741976,
+        "label": "Description"
+    },
+    {
+        "id": 1741977,
+        "label": "Release Note"
+    },
+    {
+        "id": 1741964,
+        "label": "Date Custom"
+    },
+    {
+        "id": 1741965,
+        "label": "String Custom"
+    },
+    {
+        "id": 1741966,
+        "label": "HTML Custom"
+    },
+    {
+        "id": 1741967,
+        "label": "User Custom"
+    },
+    {
+        "id": 1741968,
+        "label": "Combo Custom"
+    }
 ]

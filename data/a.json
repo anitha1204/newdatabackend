@@ -1,0 +1,178 @@
+[
+    {
+        "name": "qTest Sample-1",
+        "properties": [
+            {
+                    "field_id": 1741971,
+                    "field_name": "Status",
+                    "field_value": "300",
+                    "field_value_name": "Planned"
+                },
+                {
+                    "field_id": 1741972,
+                    "field_name": "Start Date",
+                    "field_value": "2025-01-25T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741975,
+                    "field_name": "End Date",
+                    "field_value": "2025-01-25T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741976,
+                    "field_name": "Description",
+                    "field_value": "<p>qTest Description</p>"
+                },
+                {
+                    "field_id": 1741977,
+                    "field_name": "Release Note",
+                    "field_value": "<p>qTest Release Notes</p>"
+                },
+                {
+                    "field_id": 1741964,
+                    "field_name": "Date Custom",
+                    "field_value": "2025-01-08T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741965,
+                    "field_name": "String Custom",
+                    "field_value": "qTest Custom String"
+                },
+                {
+                    "field_id": 1741966,
+                    "field_name": "HTML Custom",
+                    "field_value": "<p>qTest HTML Custom</p>"
+                },
+                {
+                    "field_id": 1741967,
+                    "field_name": "User Custom",
+                    "field_value": "529279",
+                    "field_value_name": "Krishna Prasanth"
+                },
+                {
+                    "field_id": 1741968,
+                    "field_name": "Combo Custom",
+                    "field_value": "255290",
+                    "field_value_name": "qTest Sample1"
+                }
+        ]
+    },
+    {
+        "name": "qTest Sample-2",
+        "properties": [
+            {
+                    "field_id": 1741971,
+                    "field_name": "Status",
+                    "field_value": "300",
+                    "field_value_name": "Planned"
+                },
+                {
+                    "field_id": 1741972,
+                    "field_name": "Start Date",
+                    "field_value": "2025-01-25T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741975,
+                    "field_name": "End Date",
+                    "field_value": "2025-01-25T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741976,
+                    "field_name": "Description",
+                    "field_value": "<p>qTest Description</p>"
+                },
+                {
+                    "field_id": 1741977,
+                    "field_name": "Release Note",
+                    "field_value": "<p>qTest Release Notes</p>"
+                },
+                {
+                    "field_id": 1741964,
+                    "field_name": "Date Custom",
+                    "field_value": "2025-01-08T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741965,
+                    "field_name": "String Custom",
+                    "field_value": "qTest Custom String"
+                },
+                {
+                    "field_id": 1741966,
+                    "field_name": "HTML Custom",
+                    "field_value": "<p>qTest HTML Custom</p>"
+                },
+                {
+                    "field_id": 1741967,
+                    "field_name": "User Custom",
+                    "field_value": "529279",
+                    "field_value_name": "Krishna Prasanth"
+                },
+                {
+                    "field_id": 1741968,
+                    "field_name": "Combo Custom",
+                    "field_value": "255290",
+                    "field_value_name": "qTest Sample1"
+                }
+        ]
+     
+    },
+    {
+        "name": "qTest Sample-3",
+        "properties": [
+            {
+                    "field_id": 1741971,
+                    "field_name": "Status",
+                    "field_value": "300",
+                    "field_value_name": "Planned"
+                },
+                {
+                    "field_id": 1741972,
+                    "field_name": "Start Date",
+                    "field_value": "2025-01-25T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741975,
+                    "field_name": "End Date",
+                    "field_value": "2025-01-25T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741976,
+                    "field_name": "Description",
+                    "field_value": "<p>qTest Description</p>"
+                },
+                {
+                    "field_id": 1741977,
+                    "field_name": "Release Note",
+                    "field_value": "<p>qTest Release Notes</p>"
+                },
+                {
+                    "field_id": 1741964,
+                    "field_name": "Date Custom",
+                    "field_value": "2025-01-08T00:00:00+00:00"
+                },
+                {
+                    "field_id": 1741965,
+                    "field_name": "String Custom",
+                    "field_value": "qTest Custom String"
+                },
+                {
+                    "field_id": 1741966,
+                    "field_name": "HTML Custom",
+                    "field_value": "<p>qTest HTML Custom</p>"
+                },
+                {
+                    "field_id": 1741967,
+                    "field_name": "User Custom",
+                    "field_value": "529279",
+                    "field_value_name": "Krishna Prasanth"
+                },
+                {
+                    "field_id": 1741968,
+                    "field_name": "Combo Custom",
+                    "field_value": "255290",
+                    "field_value_name": "qTest Sample1"
+                }
+        ]
+     
+    }
+    ]
