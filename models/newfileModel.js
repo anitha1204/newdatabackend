@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
- 
+
+  almName: String,
   qtestId: String,
   qtestName: String,
   value: String
+  
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);
