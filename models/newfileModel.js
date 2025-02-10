@@ -19,7 +19,7 @@ const newfileSchema = new mongoose.Schema({
 
 const qtestSchema = new mongoose.Schema({
   name: String,
-  properties: [newfileSchema]
+  properties: { type: [newfileSchema], default: [] }
 });
 
 module.exports = mongoose.model("Newfile", qtestSchema);
