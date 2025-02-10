@@ -39,14 +39,15 @@ exports.newfiledata = async (req, res) => {
 
     // Save the matched field to Newfile collection
     const newEntry = new Newfile({
-      Name: matchedField.Name,
+      // Name: matchedField.Name,
+      qtestLabel:qtestLabel, 
       qtestId: qtestId,
       value: valueToStore, // Store a single value as per schema
     });
 
     await newEntry.save();
 
-    res.status(200).json({ almName: matchedField.Name, value: valueToStore,qtestId: qtestId, message: "Mapping saved successfully in Newfile" });
+    res.status(200).json({ qtestLabel: qtestLabel , value: valueToStore,qtestId: qtestId, message: "Mapping saved successfully in Newfile" });
 
   } catch (error) {
     res.status(500).json({ message: "Error processing mapping", error });
