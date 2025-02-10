@@ -19,10 +19,11 @@ const newfileSchema = new mongoose.Schema({
 
 const qtestSchema = new mongoose.Schema({
   name: String,
-  properties: { type: [newfileSchema], default: [] }
+  properties: { type: [newfileSchema], default: [] } 
 });
 
-module.exports = mongoose.model("Newfile", qtestSchema);
+module.exports = mongoose.model("QTest", qtestSchema); 
+
 
 
 // const mongoose = require("mongoose");
