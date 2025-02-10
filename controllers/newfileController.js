@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 const { Valuefile } = require("../models/almModel");
 const Newfile = require("../models/newfileModel");
 

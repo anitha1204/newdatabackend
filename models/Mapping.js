@@ -5,6 +5,7 @@ const mappingSchema = new mongoose.Schema({
   almName: String,
   qtestId: String,
   qtestName: String,
+  qtestLabel: String,
   color: String,
 });
 
