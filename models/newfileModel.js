@@ -21,9 +21,8 @@ const newfileSchema = new mongoose.Schema({
       Name: String,
       qtestName: String,
       qtestId: String,
-      value: String,
-    },
-  ],
+      value: String
+    }]
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);

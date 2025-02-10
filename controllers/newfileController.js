@@ -31,27 +31,55 @@ exports.newfiledata = async (req, res) => {
     }
 
     // Extract first value (if exists)
-    const valueToStore = matchedField.values.length > 0 ? matchedField.values[0].value : null;
+    const valueToStore = 
+    matchedField.values.length > 0 
+    ? matchedField.values[0].value 
+    : null;
 
     if (!valueToStore) {
       return res.status(400).json({ message: "No value found for the specified field" });
     }
 
-    // Save the matched field to Newfile collection
-    const newEntry = new Newfile({
-      name: almName,
-      properties:[{
-        qtestName:qtestName, 
-        qtestId: qtestId,
-        value: valueToStore
-      }]
+    let mapping = await Newfile.findOne({name:almName});
+    if (mapping){
+      mapping.properties.push({
+        qtestName,
+        qtestId,
+        value:valueToStore
+      });
+    } else{
+      mapping = new Newfile({
+        name: almName,
+        properties:[
+          {
+            qtestName,
+            qtestId,
+            value:valueToStore
+          }
+        ]
+      });
+    }
+    // // Save the matched field to Newfile collection
+    // const newEntry = new Newfile({
+    //   name: almName,
+    //   properties:[{
+    //     qtestName:qtestName, 
+    //     qtestId: qtestId,
+    //     value: valueToStore
+    //   }]
        
+    // });
+
+    // await newEntry.save();
+    await mapping.save();
+
+    // res.status(200).json({
+    //    qtestName: qtestName, value: valueToStore,qtestId: qtestId, message: "Mapping saved successfully in Newfile" });
+
+    res.status(200).json({
+      message: "Mapping saved successfully",
+      data: mapping
     });
-
-    await newEntry.save();
-
-    res.status(200).json({ qtestName: qtestName, value: valueToStore,qtestId: qtestId, message: "Mapping saved successfully in Newfile" });
-
   } catch (error) {
     res.status(500).json({ message: "Error processing mapping", error });
   }
