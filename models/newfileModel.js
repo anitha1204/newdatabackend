@@ -18,10 +18,9 @@ const newfileSchema = new mongoose.Schema({
   name: { type: String, required: true },
   properties: [
     {
-      Name: String,
-      qtestName: String,
-      qtestId: String,
-      value: String
+      qtestName: { type: String },
+      qtestId: { type: String },
+      value: { type: String }
     }]
 });
 
