@@ -1,16 +1,32 @@
+// const mongoose = require("mongoose");
+
+// const newfileSchema = new mongoose.Schema({
+
+//   almName: String,
+//   qtestId: String,
+//   qtestName: String,
+//   value: String
+
+// });
+
+// module.exports = mongoose.model("Newfile", newfileSchema);
+
+
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
-
-  almName: String,
-  qtestId: String,
-  qtestName: String,
-  value: String
-  
+  name: { type: String, required: true },
+  properties: [
+    {
+      Name: String,
+      qtestName: String,
+      qtestId: String,
+      value: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);
-
 
 
 

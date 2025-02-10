@@ -39,9 +39,13 @@ exports.newfiledata = async (req, res) => {
 
     // Save the matched field to Newfile collection
     const newEntry = new Newfile({
-      qtestName:qtestName, 
-      qtestId: qtestId,
-      value: valueToStore, // Store a single value as per schema
+      name: almName,
+      properties:[{
+        qtestName:qtestName, 
+        qtestId: qtestId,
+        value: valueToStore
+      }]
+       
     });
 
     await newEntry.save();
