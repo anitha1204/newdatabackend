@@ -15,7 +15,7 @@
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
-  name: { type: String, default:""}, 
+  name: { type: String, required: true }, 
   properties: [
     {
       qtestName: { type: String },
