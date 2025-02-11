@@ -294,7 +294,6 @@
 // };
 
 
-
 exports.newfiledata = async (req, res) => {
   try {
     let { almName, qtestId, qtestName } = req.body;
@@ -335,44 +334,29 @@ exports.newfiledata = async (req, res) => {
     const existingRecord = await Newfile.findOne({ name: almName });
 
     if (!existingRecord) {
-      // Create first array with initial data
+      // Create new record with a single array containing the first item
       const newMapping = new Newfile({
         name: almName,
-        properties: [[{  // Note the double array brackets here
+        properties: [{
           qtestName,
           qtestId,
           value: valueToStore
-        }]]
+        }]
       });
 
       await newMapping.save();
       return res.status(201).json({
-        message: "First mapping array created successfully",
+        message: "First mapping created successfully",
         data: newMapping
       });
     }
 
-    // If record exists, find appropriate array or create new one
-    const lastArray = existingRecord.properties[existingRecord.properties.length - 1];
-    
-    // Check if last array has reached maximum size (let's say 5 items)
-    const MAX_ARRAY_SIZE = 5;
-    
-    if (lastArray.length >= MAX_ARRAY_SIZE) {
-      // Create new array for this item
-      existingRecord.properties.push([{
-        qtestName,
-        qtestId,
-        value: valueToStore
-      }]);
-    } else {
-      // Add to existing last array
-      lastArray.push({
-        qtestName,
-        qtestId,
-        value: valueToStore
-      });
-    }
+    // Add new item to the existing array
+    existingRecord.properties.push({
+      qtestName,
+      qtestId,
+      value: valueToStore
+    });
 
     await existingRecord.save();
     
