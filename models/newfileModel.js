@@ -15,18 +15,20 @@
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true, default: "name" }, // Default value set to "name"
-  properties: [
-    {
-      qtestName: { type: String, required: true },
-      qtestId: { type: String, required: true },
-      value: { type: String, required: true }
-    }
-  ]
+  name: { 
+    type: String, 
+    required: true, 
+    unique: true, 
+    default: "name" 
+  },
+  properties: [[{  // Note the double array brackets for nested arrays
+    qtestName: { type: String, required: true },
+    qtestId: { type: String, required: true },
+    value: { type: String, required: true }
+  }]]
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);
-
 
 
 

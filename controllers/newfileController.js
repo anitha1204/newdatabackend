@@ -294,6 +294,7 @@
 // };
 
 
+
 exports.newfiledata = async (req, res) => {
   try {
     let { almName, qtestId, qtestName } = req.body;
@@ -302,8 +303,9 @@ exports.newfiledata = async (req, res) => {
       return res.status(400).json({ message: "qtestId and qtestName are required" });
     }
 
-    almName = almName || "name"; // Default value if almName is not provided
+    almName = almName || "name";
 
+    // Fetch the value from Valuefile
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
       { "entities.Fields": 1, _id: 0 }
@@ -313,6 +315,7 @@ exports.newfiledata = async (req, res) => {
       return res.status(404).json({ message: "No matching record found for almName" });
     }
 
+    // Find matching field and its value
     let matchedField = null;
     for (const entity of Newdatafile.entities) {
       const field = entity.Fields.find(f => f.Name === almName);
@@ -328,36 +331,51 @@ exports.newfiledata = async (req, res) => {
 
     const valueToStore = matchedField.values[0].value;
 
+    // Find existing record
     const existingRecord = await Newfile.findOne({ name: almName });
 
     if (!existingRecord) {
+      // Create first array with initial data
       const newMapping = new Newfile({
         name: almName,
-        properties: [
-          {
-            qtestName,
-            qtestId,
-            value: valueToStore
-          }
-        ]
+        properties: [[{  // Note the double array brackets here
+          qtestName,
+          qtestId,
+          value: valueToStore
+        }]]
       });
 
       await newMapping.save();
-
       return res.status(201).json({
-        message: "First mapping created successfully",
+        message: "First mapping array created successfully",
         data: newMapping
       });
     }
 
-    existingRecord.properties.push({
-      qtestName,
-      qtestId,
-      value: valueToStore
-    });
+    // If record exists, find appropriate array or create new one
+    const lastArray = existingRecord.properties[existingRecord.properties.length - 1];
+    
+    // Check if last array has reached maximum size (let's say 5 items)
+    const MAX_ARRAY_SIZE = 5;
+    
+    if (lastArray.length >= MAX_ARRAY_SIZE) {
+      // Create new array for this item
+      existingRecord.properties.push([{
+        qtestName,
+        qtestId,
+        value: valueToStore
+      }]);
+    } else {
+      // Add to existing last array
+      lastArray.push({
+        qtestName,
+        qtestId,
+        value: valueToStore
+      });
+    }
 
     await existingRecord.save();
-
+    
     res.status(200).json({
       message: "Mapping updated successfully",
       data: existingRecord
@@ -365,5 +383,39 @@ exports.newfiledata = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ message: "Error processing mapping", error: error.message });
+  }
+};
+
+exports.getMappedData = async (req, res) => {
+  try {
+    const mappedData = await Newfile.find();
+
+    if (!mappedData || mappedData.length === 0) {
+      return res.status(404).json({ message: "No mapped data found" });
+    }
+
+    res.status(200).json(mappedData);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving mapped data", error: error.message });
+  }
+};
+
+exports.getMappedDataByQtestId = async (req, res) => {
+  try {
+    const { qtestId } = req.params;
+
+    if (!qtestId) {
+      return res.status(400).json({ message: "qtestId is required" });
+    }
+
+    const mappedData = await Newfile.find({ "properties.qtestId": qtestId });
+
+    if (!mappedData || mappedData.length === 0) {
+      return res.status(404).json({ message: "No record found for the given qtestId" });
+    }
+
+    res.status(200).json(mappedData);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving data", error: error.message });
   }
 };
