@@ -12,20 +12,34 @@
 // module.exports = mongoose.model("Newfile", newfileSchema);
 
 
+// const mongoose = require("mongoose");
+
+// const newfileSchema = new mongoose.Schema({
+//   name: { type: String, required: true }, 
+//   properties: [
+//     {
+//       qtestName: { type: String },
+//       qtestId: { type: String },
+//       value: { type: String }
+//     }
+//   ]
+// });
+
+// module.exports = mongoose.model("Newfile", newfileSchema);
+
+
+
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true, 
-    unique: true, 
-    default: "name" 
-  },
-  properties: [[{  // Note the double array brackets for nested arrays
-    qtestName: { type: String, required: true },
-    qtestId: { type: String, required: true },
-    value: { type: String, required: true }
-  }]]
+  name: { type: String, required: true, unique: true },
+  properties: [
+    {
+      qtestName: { type: String, required: true },
+      qtestId: { type: String, required: true },
+      value: { type: String, required: true }
+    }
+  ]
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);
