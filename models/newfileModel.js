@@ -12,27 +12,10 @@
 // module.exports = mongoose.model("Newfile", newfileSchema);
 
 
-// const mongoose = require("mongoose");
-
-// const newfileSchema = new mongoose.Schema({
-//   name: { type: String, required: true }, 
-//   properties: [
-//     {
-//       qtestName: { type: String },
-//       qtestId: { type: String },
-//       value: { type: String }
-//     }
-//   ]
-// });
-
-// module.exports = mongoose.model("Newfile", newfileSchema);
-
-
-
 const mongoose = require("mongoose");
 
 const newfileSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
+  name: { type: String, required: true, unique: true, default: "name" }, // Default value set to "name"
   properties: [
     {
       qtestName: { type: String, required: true },
@@ -43,6 +26,7 @@ const newfileSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Newfile", newfileSchema);
+
 
 
 
