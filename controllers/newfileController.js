@@ -8,7 +8,7 @@ exports.newfiledata = async (req, res) => {
     // Find the entry in Valuefile
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
-      { "entities.Fields.Name": 5, "entities.Fields.values": 5, _id: 0 }
+      { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
     );
 
     if (!Newdatafile) {
