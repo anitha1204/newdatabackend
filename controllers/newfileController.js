@@ -248,7 +248,7 @@ exports.newfiledata = async (req, res) => {
       mappingDocument = new Newfile({
         name: "masterArray",
         properties: [
-          { almName, qtestName, qtestId, value: valueToStore }
+          {  qtestName, qtestId, value: valueToStore }
         ]
       });
     } else {
