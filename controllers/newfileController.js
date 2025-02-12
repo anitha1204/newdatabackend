@@ -206,7 +206,7 @@
 const Newfile = require("../models/newfileModel");
 const { Valuefile } = require("../models/almModel");
 
-// Create/Update mapped data
+
 exports.newfiledata = async (req, res) => {
   try {
     const { almName, qtestId, qtestName } = req.body;
@@ -218,10 +218,10 @@ exports.newfiledata = async (req, res) => {
     );
 
     if (!Newdatafile) {
-      return res.status(404).json({ almName: null, message: "No matching record found" });
+      return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Find matching field and its values
+    // Find the field in the document
     let matchedField = null;
     Newdatafile.entities.forEach(entity => {
       const field = entity.Fields.find(f => f.Name === almName);
@@ -231,7 +231,7 @@ exports.newfiledata = async (req, res) => {
     });
 
     if (!matchedField) {
-      return res.status(404).json({ almName: null, message: "No matching field found" });
+      return res.status(404).json({ message: "No matching field found" });
     }
 
     // Get value to store
@@ -240,68 +240,57 @@ exports.newfiledata = async (req, res) => {
       return res.status(400).json({ message: "No value found for the specified field" });
     }
 
-    // Find or create the single array document
+    // Find or create the masterArray document
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
-    const newProperty = {
-      almName,
-      qtestName,
-      qtestId,
-      value: valueToStore
-    };
-
     if (!mappingDocument) {
-      // Create new document with first mapping
+      // Create a new document if it doesn't exist
       mappingDocument = new Newfile({
         name: "masterArray",
-        properties: [newProperty]
+        properties: [
+          { qtestName, qtestId, value: valueToStore }
+        ]
       });
     } else {
-      // Add to existing array
-      mappingDocument.properties.push(newProperty);
+      // **Check if the qtestId already exists**
+      const exists = mappingDocument.properties.some(prop => prop.qtestId === qtestId);
+
+      if (exists) {
+        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+      }
+
+      // Add new property
+      mappingDocument.properties.push({ almName, qtestName, qtestId, value: valueToStore });
     }
 
-    // Convert to object and remove all `_id` fields before saving
-    mappingDocument = mappingDocument.toObject();
-    mappingDocument.properties.forEach(prop => delete prop._id);
+    // Save document
+    await mappingDocument.save();
 
-    // Save updated document
-    await Newfile.findOneAndUpdate(
-      { name: "masterArray" },
-      { $set: { properties: mappingDocument.properties } },
-      { upsert: true, new: true }
-    );
+    res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
 
-    res.status(200).json({
-      message: "Mapping saved successfully",
-      data: mappingDocument.properties
-    });
   } catch (error) {
     res.status(500).json({ message: "Error processing mapping", error });
   }
 };
 
+
 // Get all mapped data (remove `_id`)
 exports.getMappedData = async (req, res) => {
   try {
-    const mappingDocument = await Newfile.findOne({ name: "masterArray" });
+    const mappingDocument = await Newfile.findOne({ name: "masterArray" }).lean();
 
     if (!mappingDocument || mappingDocument.properties.length === 0) {
       return res.status(404).json({ message: "No mapped data found" });
     }
 
-    // Convert to object and remove `_id`
-    const properties = mappingDocument.properties.map(prop => {
-      const obj = prop.toObject();
-      delete obj._id;
-      return obj;
-    });
+    delete mappingDocument._id; // 🚨 Remove `_id` before sending response
 
-    res.status(200).json(properties);
+    res.status(200).json(mappingDocument);
   } catch (error) {
     res.status(500).json({ message: "Error retrieving mapped data", error });
   }
 };
+
 
 // Get mapped data by qtestId (remove `_id`)
 exports.getMappedDataByQtestId = async (req, res) => {
