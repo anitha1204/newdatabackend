@@ -321,7 +321,7 @@ const { Valuefile } = require("../models/almModel");
 
 exports.newfiledata = async (req, res) => {
   try {
-    const { almName, qtestId, qtestName } = req.body;
+    const { almName, qtestId, newKeyName } = req.body; // Change qtestName to newKeyName
 
     // Find the entry in Valuefile
     const Newdatafile = await Valuefile.findOne(
@@ -363,7 +363,7 @@ exports.newfiledata = async (req, res) => {
       mappingDocument = new Newfile({
         name: "masterArray",
         properties: [
-          { qtestName: field_name, qtestId: field_id, value: field_value }
+          { [newKeyName]: field_name, qtestId: field_id, value: field_value }
         ]
       });
     } else {
@@ -373,7 +373,7 @@ exports.newfiledata = async (req, res) => {
         return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
       }
       // Add new property
-      mappingDocument.properties.push({ qtestName: field_name, qtestId: field_id, value: field_value });
+      mappingDocument.properties.push({ [newKeyName]: field_name, qtestId: field_id, value: field_value });
     }
 
     // Save document
@@ -383,7 +383,7 @@ exports.newfiledata = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error processing mapping", error });
   }
-};
+};;
 
 // Get all mapped data
 exports.getMappedData = async (req, res) => {
