@@ -260,7 +260,7 @@ exports.newfiledata = async (req, res) => {
       }
 
       // Add new property
-      mappingDocument.properties.push({ almName, qtestName, qtestId, value: valueToStore });
+      mappingDocument.properties.push({ qtestName, qtestId, value: valueToStore });
     }
 
     // Save document
