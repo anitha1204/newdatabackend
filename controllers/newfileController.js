@@ -69,6 +69,95 @@
 // };
 
 
+
+const Newfile = require("../models/newfileModel");
+const { Valuefile } = require("../models/almModel");
+
+exports.newfiledata = async (req, res) => {
+  try {
+    const { data } = req.body; // Expecting an array of objects
+
+    if (!Array.isArray(data) || data.length === 0) {
+      return res.status(400).json({ message: "Invalid input, expected an array of objects" });
+    }
+
+    let mappingDocument = await Newfile.findOne({ name: "masterArray" });
+    if (!mappingDocument) {
+      mappingDocument = new Newfile({ name: "masterArray", properties: [] });
+    }
+
+    for (const { almName, qtestId, qtestName } of data) {
+      const Newdatafile = await Valuefile.findOne(
+        { "entities.Fields.Name": almName },
+        { "entities.Fields": 1, _id: 0 }
+      );
+
+      if (!Newdatafile) {
+        continue; // Skip if no matching record found
+      }
+
+      // Find the matching field
+      const matchedField = Newdatafile.entities
+        .flatMap(entity => entity.Fields)
+        .find(field => field.Name === almName);
+
+      if (!matchedField || !matchedField.values || !matchedField.values[0]?.value) {
+        continue;
+      }
+
+      const valueToStore = matchedField.values[0].value;
+
+      // Check for duplicate qtestId
+      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+      if (!exists) {
+        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: valueToStore });
+      }
+    }
+
+    await mappingDocument.save();
+    res.status(200).json({ message: "Mappings saved successfully", data: mappingDocument.properties });
+  } catch (error) {
+    console.error("Error processing mapping:", error);
+    res.status(500).json({ message: "Error processing mapping", error: error.message });
+  }
+};
+
+// Get all mapped data
+exports.getMappedData = async (req, res) => {
+  try {
+    const mappingDocument = await Newfile.findOne({ name: "masterArray" }).lean();
+
+    if (!mappingDocument || mappingDocument.properties.length === 0) {
+      return res.status(404).json({ message: "No mapped data found" });
+    }
+
+    res.status(200).json(mappingDocument);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving mapped data", error });
+  }
+};
+
+// Get mapped data by qtestId
+exports.getMappedDataByQtestId = async (req, res) => {
+  try {
+    const { qtestId } = req.params;
+    const mappingDocument = await Newfile.findOne(
+      { name: "masterArray", "properties.field_id": qtestId },
+      { "properties.$": 1 }
+    );
+
+    if (!mappingDocument) {
+      return res.status(404).json({ message: "No record found for the given qtestId" });
+    }
+
+    res.status(200).json(mappingDocument.properties[0]);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving data", error });
+  }
+};
+
+
+
 // // Get all mapped data (remove `_id`)
 // exports.getMappedData = async (req, res) => {
 //   try {
@@ -111,87 +200,87 @@
 
 
 
-const Newfile = require("../models/newfileModel");
-const { Valuefile } = require("../models/almModel");
+// const Newfile = require("../models/newfileModel");
+// const { Valuefile } = require("../models/almModel");
 
-exports.newfiledata = async (req, res) => {
-  try {
-    const { data } = req.body; // Expecting an array of objects [{ almName, qtestId, qtestName }]
-    if (!Array.isArray(data) || data.length === 0) {
-      return res.status(400).json({ message: "Invalid input, expected an array" });
-    }
+// exports.newfiledata = async (req, res) => {
+//   try {
+//     const { data } = req.body; // Expecting an array of objects [{ almName, qtestId, qtestName }]
+//     if (!Array.isArray(data) || data.length === 0) {
+//       return res.status(400).json({ message: "Invalid input, expected an array" });
+//     }
 
-    let mappingDocument = await Newfile.findOne({ name: "masterArray" });
-    if (!mappingDocument) {
-      mappingDocument = new Newfile({ name: "masterArray", properties: [] });
-    }
+//     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
+//     if (!mappingDocument) {
+//       mappingDocument = new Newfile({ name: "masterArray", properties: [] });
+//     }
 
-    for (const { almName, qtestId, qtestName } of data) {
-      const Newdatafile = await Valuefile.findOne(
-        { "entities.Fields.Name": almName },
-        { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
-      );
+//     for (const { almName, qtestId, qtestName } of data) {
+//       const Newdatafile = await Valuefile.findOne(
+//         { "entities.Fields.Name": almName },
+//         { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
+//       );
 
-      if (!Newdatafile) {
-        continue; // Skip if no matching record found
-      }
+//       if (!Newdatafile) {
+//         continue; // Skip if no matching record found
+//       }
 
-      let matchedField = null;
-      Newdatafile.entities.forEach(entity => {
-        const field = entity.Fields.find(f => f.Name === almName);
-        if (field) {
-          matchedField = field;
-        }
-      });
+//       let matchedField = null;
+//       Newdatafile.entities.forEach(entity => {
+//         const field = entity.Fields.find(f => f.Name === almName);
+//         if (field) {
+//           matchedField = field;
+//         }
+//       });
 
-      if (!matchedField) {
-        continue;
-      }
+//       if (!matchedField) {
+//         continue;
+//       }
 
-      const valueToStore = matchedField.values?.[0]?.value;
-      if (!valueToStore) {
-        continue;
-      }
+//       const valueToStore = matchedField.values?.[0]?.value;
+//       if (!valueToStore) {
+//         continue;
+//       }
 
-      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-      if (!exists) {
-        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: valueToStore });
-      }
-    }
+//       const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+//       if (!exists) {
+//         mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: valueToStore });
+//       }
+//     }
 
-    await mappingDocument.save();
-    res.status(200).json({ message: "Mappings saved successfully", data: mappingDocument.properties });
-  } catch (error) {
-    console.error("Error processing mapping:", error);
-    res.status(500).json({ message: "Error processing mapping", error: error.message });
-  }
-};
+//     await mappingDocument.save();
+//     res.status(200).json({ message: "Mappings saved successfully", data: mappingDocument.properties });
+//   } catch (error) {
+//     console.error("Error processing mapping:", error);
+//     res.status(500).json({ message: "Error processing mapping", error: error.message });
+//   }
+// };
 
-exports.getMappedData = async (req, res) => {
-  try {
-    const mappingDocument = await Newfile.findOne({ name: "masterArray" }).lean();
-    if (!mappingDocument || mappingDocument.properties.length === 0) {
-      return res.status(404).json({ message: "No mapped data found" });
-    }
-    delete mappingDocument._id;
-    res.status(200).json(mappingDocument);
-  } catch (error) {
-    res.status(500).json({ message: "Error retrieving mapped data", error });
-  }
-};
+// exports.getMappedData = async (req, res) => {
+//   try {
+//     const mappingDocument = await Newfile.findOne({ name: "masterArray" }).lean();
+//     if (!mappingDocument || mappingDocument.properties.length === 0) {
+//       return res.status(404).json({ message: "No mapped data found" });
+//     }
+//     delete mappingDocument._id;
+//     res.status(200).json(mappingDocument);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error retrieving mapped data", error });
+//   }
+// };
 
-exports.getMappedDataByQtestId = async (req, res) => {
-  try {
-    const { qtestId } = req.params;
-    const mappingDocument = await Newfile.findOne(
-      { name: "masterArray", "properties.field_id": qtestId },
-      { "properties.$": 1 }
-    );
-    if (!mappingDocument) {
-      return res.status(404).json({ message: "No record found for the given qtestId" });
-    }
-    res.status(200).json(mappingDocument.properties[0]);
-  } catch (error) {
-    res.status(500).json({ message: "Error retrieving data", error });
-  }
-};
+// exports.getMappedDataByQtestId = async (req, res) => {
+//   try {
+//     const { qtestId } = req.params;
+//     const mappingDocument = await Newfile.findOne(
+//       { name: "masterArray", "properties.field_id": qtestId },
+//       { "properties.$": 1 }
+//     );
+//     if (!mappingDocument) {
+//       return res.status(404).json({ message: "No record found for the given qtestId" });
+//     }
+//     res.status(200).json(mappingDocument.properties[0]);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error retrieving data", error });
+//   }
+// };
