@@ -123,49 +123,54 @@ exports.newfiledata = async (req, res) => {
       { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
     );
 
-    if (!Newdatafile) {
+    if (!Newdatafile || !Newdatafile.entities) {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Extract all matching values
-    let valuesToStore = [];
+    // Find the field in the document
+    let matchedField = null;
     Newdatafile.entities.forEach(entity => {
-      entity.Fields.forEach(field => {
-        if (field.Name === almName) {
-          field.values.forEach(val => {
-            if (val.value) {
-              valuesToStore.push(val.value);
-            }
-          });
+      if (entity.Fields) {
+        const field = entity.Fields.find(f => f.Name === almName);
+        if (field) {
+          matchedField = field;
         }
-      });
+      }
     });
 
-    if (valuesToStore.length === 0) {
-      return res.status(400).json({ message: "No values found for the specified field" });
+    if (!matchedField) {
+      return res.status(404).json({ message: "No matching field found" });
+    }
+
+    // Get values to store (remove empty objects)
+    const valuesToStore = matchedField.values
+      .map(v => v.value)
+      .filter(value => value !== undefined && value !== null && value !== "");
+
+    if (!valuesToStore.length) {
+      return res.status(400).json({ message: "No valid values found for the specified field" });
     }
 
     // Find or create the masterArray document
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
-      // Create a new document if it doesn't exist
+      // Create new document if it doesn't exist
       mappingDocument = new Newfile({
         name: "masterArray",
-        properties: [
-          { field_name: qtestName, field_id: qtestId, field_values: valuesToStore }
-        ]
+        properties: [{ field_name: qtestName, field_id: qtestId, field_values: valuesToStore }]
       });
     } else {
       // Check if the field_id already exists
-      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+      const existingProperty = mappingDocument.properties.find(prop => prop.field_id === qtestId);
 
-      if (exists) {
-        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+      if (existingProperty) {
+        // If field_id exists, merge unique values
+        existingProperty.field_values = [...new Set([...existingProperty.field_values, ...valuesToStore])];
+      } else {
+        // Add new property
+        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_values: valuesToStore });
       }
-
-      // Add new property
-      mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_values: valuesToStore });
     }
 
     // Save document
@@ -179,6 +184,8 @@ exports.newfiledata = async (req, res) => {
   }
 };
 
+
+
 // Get all mapped data (remove `_id`)
 exports.getMappedData = async (req, res) => {
   try {
@@ -188,7 +195,7 @@ exports.getMappedData = async (req, res) => {
       return res.status(404).json({ message: "No mapped data found" });
     }
 
-    delete mappingDocument._id;
+    delete mappingDocument._id; // 🚨 Remove `_id` before sending response
 
     res.status(200).json(mappingDocument);
   } catch (error) {
@@ -196,12 +203,13 @@ exports.getMappedData = async (req, res) => {
   }
 };
 
-// Get mapped data by qtestId
+
+// Get mapped data by qtestId (remove `_id`)
 exports.getMappedDataByQtestId = async (req, res) => {
   try {
     const { qtestId } = req.params;
     const mappingDocument = await Newfile.findOne(
-      { name: "masterArray", "properties.field_id": qtestId },
+      { name: "masterArray", "properties.qtestId": qtestId },
       { "properties.$": 1 }
     );
 
@@ -217,3 +225,6 @@ exports.getMappedDataByQtestId = async (req, res) => {
     res.status(500).json({ message: "Error retrieving data", error });
   }
 };
+
+
+
