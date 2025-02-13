@@ -121,7 +121,7 @@ exports.newfiledata = async (req, res) => {
     // Find all matching entities with the given almName
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
-      { "entities.Fields": 1, _id: 0 }
+      { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
     );
 
     if (!Newdatafile) {
