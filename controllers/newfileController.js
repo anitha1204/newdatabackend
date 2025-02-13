@@ -119,23 +119,25 @@ exports.newfiledata = async (req, res) => {
   try {
     const { almName, qtestId, qtestName } = req.body;
 
-    // Find the entry in Valuefile
+    // Find all matching entities with the given almName
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
-      { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
+      { "entities.Fields": 1, _id: 0 }
     );
 
     if (!Newdatafile) {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Extract all matching fields and their values
+    // Collect all values where Name matches almName
     let valuesToStore = [];
     Newdatafile.entities.forEach(entity => {
       entity.Fields.forEach(field => {
-        if (field.Name === almName && field.values?.length) {
+        if (field.Name === almName && field.values?.length > 0) {
           field.values.forEach(val => {
-            if (val.value) valuesToStore.push(val.value);
+            if (val.value) {
+              valuesToStore.push(val.value);
+            }
           });
         }
       });
@@ -149,7 +151,6 @@ exports.newfiledata = async (req, res) => {
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
-      // Create a new document if it doesn't exist
       mappingDocument = new Newfile({
         name: "masterArray",
         properties: valuesToStore.map(value => ({
@@ -159,13 +160,13 @@ exports.newfiledata = async (req, res) => {
         }))
       });
     } else {
-      // Prevent duplicate qtestId entries
+      // Check if qtestId already exists
       const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
       if (exists) {
         return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
       }
 
-      // Add all extracted values
+      // Add multiple values to properties
       valuesToStore.forEach(value => {
         mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: value });
       });
