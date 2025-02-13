@@ -127,7 +127,7 @@ exports.newfiledata = async (req, res) => {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Extract the field from entities
+    // Find the field in the document
     let matchedField = null;
     Newdatafile.entities.forEach(entity => {
       const field = entity.Fields.find(f => f.Name === almName);
@@ -140,22 +140,12 @@ exports.newfiledata = async (req, res) => {
       return res.status(404).json({ message: "No matching field found" });
     }
 
-    // Get values (up to 5)
-    const valuesToStore = matchedField.values
-      ?.slice(0, 5)
-      .map(v => v.value)
-      .filter(Boolean);
+    // Get values to store (array of values)
+    const valuesToStore = matchedField.values.map(v => v.value);
 
     if (!valuesToStore.length) {
       return res.status(400).json({ message: "No values found for the specified field" });
     }
-
-    // Structure the values as array of objects
-    const structuredValues = valuesToStore.map(value => ({
-      field_id: qtestId,
-      field_name: qtestName,
-      field_value: value
-    }));
 
     // Find or create the masterArray document
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
@@ -164,27 +154,29 @@ exports.newfiledata = async (req, res) => {
       // Create a new document if it doesn't exist
       mappingDocument = new Newfile({
         name: "masterArray",
-        properties: structuredValues
+        properties: [
+          { field_name: qtestName, field_id: qtestId, field_values: valuesToStore }
+        ]
       });
     } else {
       // Check if the field_id already exists
-      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+      const existingProperty = mappingDocument.properties.find(prop => prop.field_id === qtestId);
 
-      if (exists) {
-        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+      if (existingProperty) {
+        // If field_id exists, append new values to the existing array (avoid duplicates)
+        existingProperty.field_values = [
+          ...new Set([...existingProperty.field_values, ...valuesToStore])
+        ];
+      } else {
+        // Add new property
+        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_values: valuesToStore });
       }
-
-      // Add new structured values
-      mappingDocument.properties.push(...structuredValues);
     }
 
     // Save document
     await mappingDocument.save();
 
-    res.status(200).json({
-      message: "Mapping saved successfully",
-      data: mappingDocument.properties
-    });
+    res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
 
   } catch (error) {
     console.error("Error processing mapping:", error);
@@ -193,15 +185,16 @@ exports.newfiledata = async (req, res) => {
 };
 
 
+// Get all mapped data (remove `_id`)
 exports.getMappedData = async (req, res) => {
   try {
-    const mappingDocument = await Newfile.findOne({ name: "masterArray" })
-      .lean()
-      .select('-_id -properties._id -"properties.field_data.values._id"');
+    const mappingDocument = await Newfile.findOne({ name: "masterArray" }).lean();
 
     if (!mappingDocument || mappingDocument.properties.length === 0) {
       return res.status(404).json({ message: "No mapped data found" });
     }
+
+    delete mappingDocument._id; // 🚨 Remove `_id` before sending response
 
     res.status(200).json(mappingDocument);
   } catch (error) {
@@ -209,19 +202,21 @@ exports.getMappedData = async (req, res) => {
   }
 };
 
+
+// Get mapped data by qtestId (remove `_id`)
 exports.getMappedDataByQtestId = async (req, res) => {
   try {
     const { qtestId } = req.params;
     const mappingDocument = await Newfile.findOne(
       { name: "masterArray", "properties.field_id": qtestId },
       { "properties.$": 1 }
-    ).lean();
+    );
 
     if (!mappingDocument) {
       return res.status(404).json({ message: "No record found for the given qtestId" });
     }
 
-    const matchedProperty = mappingDocument.properties[0];
+    const matchedProperty = mappingDocument.properties[0].toObject();
     delete matchedProperty._id;
 
     res.status(200).json(matchedProperty);
