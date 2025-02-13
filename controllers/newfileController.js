@@ -127,21 +127,19 @@ exports.newfiledata = async (req, res) => {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Find the field in the document
-    let matchedField = null;
+    // Extract all matching values
+    let valuesToStore = [];
     Newdatafile.entities.forEach(entity => {
-      const field = entity.Fields.find(f => f.Name === almName);
-      if (field) {
-        matchedField = field;
-      }
+      entity.Fields.forEach(field => {
+        if (field.Name === almName) {
+          field.values.forEach(val => {
+            if (val.value) {
+              valuesToStore.push(val.value);
+            }
+          });
+        }
+      });
     });
-
-    if (!matchedField) {
-      return res.status(404).json({ message: "No matching field found" });
-    }
-
-    // Extract values (storing multiple values)
-    const valuesToStore = matchedField.values?.slice(0, 5).map(v => v.value) || [];
 
     if (valuesToStore.length === 0) {
       return res.status(400).json({ message: "No values found for the specified field" });
@@ -166,7 +164,7 @@ exports.newfiledata = async (req, res) => {
         return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
       }
 
-      // Add new property with multiple values
+      // Add new property
       mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_values: valuesToStore });
     }
 
