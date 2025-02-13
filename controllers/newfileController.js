@@ -114,7 +114,7 @@
 const Newfile = require("../models/newfileModel");
 const { Valuefile } = require("../models/almModel");
 
-exports.newfiledata = async (req, res) => {
+exports.splitArrayData = async (req, res) => {
   try {
     const { almName, n } = req.body; // n is the number of values per sub-array
 
