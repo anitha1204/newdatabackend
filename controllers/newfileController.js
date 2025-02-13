@@ -115,7 +115,6 @@
 const Newfile = require("../models/newfileModel");
 const { Valuefile } = require("../models/almModel");
 
-
 exports.newfiledata = async (req, res) => {
   try {
     const { almName, qtestId, qtestName } = req.body;
@@ -152,46 +151,37 @@ exports.newfiledata = async (req, res) => {
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
-      mappingDocument = new Newfile({ name: "masterArray", properties: [] });
-    }
-
-    // Check if qtestId already exists
-    const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-    if (exists) {
-      return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
-    }
-
-    // Function to split values into exactly 5 arrays with distributed values
-    const distributeValuesIntoFiveArrays = (values) => {
-      let result = [[], [], [], [], []]; // Create 5 empty arrays
-      values.forEach((val, index) => {
-        result[index % 5].push(val); // Distribute values across 5 arrays in a round-robin manner
+      mappingDocument = new Newfile({
+        name: "masterArray",
+        properties: valuesToStore.map(value => ({
+          field_name: qtestName,
+          field_id: qtestId,
+          field_value: value
+        }))
       });
-      return result;
-    };
+    } else {
+      // Check if qtestId already exists
+      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+      if (exists) {
+        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+      }
 
-    // Distribute values across 5 arrays
-    let groupedValues = distributeValuesIntoFiveArrays(valuesToStore);
-
-    // Store the data inside a single array in the properties field
-    mappingDocument.properties.push({
-      field_name: qtestName,
-      field_id: qtestId,
-      field_value: groupedValues, // Store all 5 arrays inside this field_value
-    });
+      // Add multiple values to properties
+      valuesToStore.forEach(value => {
+        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: value });
+      });
+    }
 
     // Save document
     await mappingDocument.save();
 
     res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
+
   } catch (error) {
     console.error("Error processing mapping:", error);
     res.status(500).json({ message: "Error processing mapping", error: error.message });
   }
 };
-
-
-
 
 
 // Get all mapped data (remove `_id`)
@@ -233,6 +223,9 @@ exports.getMappedDataByQtestId = async (req, res) => {
     res.status(500).json({ message: "Error retrieving data", error });
   }
 };
+
+
+
 
 
 
