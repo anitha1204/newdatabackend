@@ -144,11 +144,29 @@ exports.newfiledata = async (req, res) => {
     const valuesToStore = matchedField.values
       ?.slice(0, 5)
       .map(v => v.value)
-      .filter(Boolean); // Remove any null/undefined values
+      .filter(Boolean);
 
     if (!valuesToStore.length) {
       return res.status(400).json({ message: "No values found for the specified field" });
     }
+
+    // Structure the values into nested arrays of objects
+    const structuredValues = valuesToStore.map((value, index) => ({
+      mainValue: value,
+      valueIndex: index + 1,
+      subValues: [
+        {
+          type: "primary",
+          value: value,
+          timestamp: new Date()
+        },
+        {
+          type: "secondary",
+          value: `${value}_processed`,
+          timestamp: new Date()
+        }
+      ]
+    }));
 
     // Find or create the masterArray document
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
@@ -160,10 +178,13 @@ exports.newfiledata = async (req, res) => {
         properties: [{
           field_name: qtestName,
           field_id: qtestId,
-          field_values: valuesToStore.map((value, index) => ({
-            value: value,
-            value_index: index + 1
-          }))
+          field_data: {
+            values: structuredValues,
+            metadata: {
+              totalCount: structuredValues.length,
+              lastUpdated: new Date()
+            }
+          }
         }]
       });
     } else {
@@ -174,14 +195,17 @@ exports.newfiledata = async (req, res) => {
         return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
       }
 
-      // Add new property with multiple values
+      // Add new property with nested structure
       mappingDocument.properties.push({
         field_name: qtestName,
         field_id: qtestId,
-        field_values: valuesToStore.map((value, index) => ({
-          value: value,
-          value_index: index + 1
-        }))
+        field_data: {
+          values: structuredValues,
+          metadata: {
+            totalCount: structuredValues.length,
+            lastUpdated: new Date()
+          }
+        }
       });
     }
 
@@ -199,16 +223,15 @@ exports.newfiledata = async (req, res) => {
   }
 };
 
-// Get all mapped data (remove `_id`)
 exports.getMappedData = async (req, res) => {
   try {
-    const mappingDocument = await Newfile.findOne({ name: "masterArray" }).lean();
+    const mappingDocument = await Newfile.findOne({ name: "masterArray" })
+      .lean()
+      .select('-_id -properties._id -"properties.field_data.values._id"');
 
     if (!mappingDocument || mappingDocument.properties.length === 0) {
       return res.status(404).json({ message: "No mapped data found" });
     }
-
-    delete mappingDocument._id; // 🚨 Remove `_id` before sending response
 
     res.status(200).json(mappingDocument);
   } catch (error) {
@@ -216,21 +239,19 @@ exports.getMappedData = async (req, res) => {
   }
 };
 
-
-// Get mapped data by qtestId (remove `_id`)
 exports.getMappedDataByQtestId = async (req, res) => {
   try {
     const { qtestId } = req.params;
     const mappingDocument = await Newfile.findOne(
-      { name: "masterArray", "properties.qtestId": qtestId },
+      { name: "masterArray", "properties.field_id": qtestId },
       { "properties.$": 1 }
-    );
+    ).lean();
 
     if (!mappingDocument) {
       return res.status(404).json({ message: "No record found for the given qtestId" });
     }
 
-    const matchedProperty = mappingDocument.properties[0].toObject();
+    const matchedProperty = mappingDocument.properties[0];
     delete matchedProperty._id;
 
     res.status(200).json(matchedProperty);
@@ -238,5 +259,3 @@ exports.getMappedDataByQtestId = async (req, res) => {
     res.status(500).json({ message: "Error retrieving data", error });
   }
 };
-
-
