@@ -117,22 +117,26 @@ exports.newfiledata = async (req, res) => {
   try {
     const { almName, qtestId, qtestName } = req.body;
 
-    // Find the document in Valuefile that contains the required field
-    const newDataFile = await Valuefile.findOne(
+    // Find all matching entities with the given almName
+    const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
-      { "entities.Fields": 1, _id: 0 }
+      { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
     );
 
-    if (!newDataFile) {
+    if (!Newdatafile) {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Extract all values from matching fields
+    // Collect all values where Name matches almName
     let valuesToStore = [];
-    newDataFile.entities.forEach((entity) => {
-      entity.Fields.forEach((field) => {
-        if (field.Name === almName && field.values.length > 0) {
-          valuesToStore.push(...field.values.map(v => v.value));
+    Newdatafile.entities.forEach(entity => {
+      entity.Fields.forEach(field => {
+        if (field.Name === almName && field.values?.length > 0) {
+          field.values.forEach(val => {
+            if (val.value) {
+              valuesToStore.push(val.value);
+            }
+          });
         }
       });
     });
@@ -145,37 +149,44 @@ exports.newfiledata = async (req, res) => {
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
-      mappingDocument = new Newfile({
-        name: "masterArray",
-        properties: valuesToStore.map(value => ({
-          field_name: qtestName,
-          field_id: qtestId,
-          field_value: value
-        }))
-      });
-    } else {
-      // Check if the qtestId already exists in properties
-      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-      if (exists) {
-        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
-      }
-
-      // Add new properties from the array
-      valuesToStore.forEach(value => {
-        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: value });
-      });
+      mappingDocument = new Newfile({ name: "masterArray", properties: [] });
     }
 
-    // Save the document
+    // Check if qtestId already exists
+    const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+    if (exists) {
+      return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+    }
+
+    // Function to split values into exactly 5 arrays with distributed values
+    const distributeValuesIntoFiveArrays = (values) => {
+      let result = [[], [], [], [], []]; // Create 5 empty arrays
+      values.forEach((val, index) => {
+        result[index % 5].push(val); // Distribute values across 5 arrays in a round-robin manner
+      });
+      return result;
+    };
+
+    // Distribute values across 5 arrays
+    let groupedValues = distributeValuesIntoFiveArrays(valuesToStore);
+
+    // Store the data inside a single array in the properties field
+    mappingDocument.properties.push({
+      field_name: qtestName,
+      field_id: qtestId,
+      field_value: groupedValues, // Store all 5 arrays inside this field_value
+    });
+
+    // Save document
     await mappingDocument.save();
 
     res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
-
   } catch (error) {
     console.error("Error processing mapping:", error);
     res.status(500).json({ message: "Error processing mapping", error: error.message });
   }
 };
+
 
 
 
