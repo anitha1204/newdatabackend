@@ -110,8 +110,6 @@
 // };
 
 
-
-
 const Newfile = require("../models/newfileModel");
 const { Valuefile } = require("../models/almModel");
 
@@ -160,44 +158,35 @@ exports.newfiledata = async (req, res) => {
       return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
     }
 
-    // Function to split values into multiple sub-arrays
-    const chunkValues = (values, chunkSizes) => {
-      let result = [];
-      let index = 0;
-      for (let size of chunkSizes) {
-        if (index < values.length) {
-          result.push(values.slice(index, index + size));
-          index += size;
-        }
-      }
+    // Function to split values into exactly 5 arrays with distributed values
+    const distributeValuesIntoFiveArrays = (values) => {
+      let result = [[], [], [], [], []]; // Create 5 empty arrays
+      values.forEach((val, index) => {
+        result[index % 5].push(val); // Distribute values across 5 arrays in a round-robin manner
+      });
       return result;
     };
 
-    // Define how many values each array should contain
-    const chunkSizes = [2, 3, 4, 5, 6]; // You can modify this pattern
+    // Distribute values across 5 arrays
+    let groupedValues = distributeValuesIntoFiveArrays(valuesToStore);
 
-    // Group values
-    let groupedValues = chunkValues(valuesToStore, chunkSizes);
-
-    // Push structured data into properties
-    groupedValues.forEach(group => {
-      mappingDocument.properties.push({
-        field_name: qtestName,
-        field_id: qtestId,
-        field_value: group
-      });
+    // Store the data inside a single array in the properties field
+    mappingDocument.properties.push({
+      field_name: qtestName,
+      field_id: qtestId,
+      field_value: groupedValues, // Store all 5 arrays inside this field_value
     });
 
     // Save document
     await mappingDocument.save();
 
     res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
-
   } catch (error) {
     console.error("Error processing mapping:", error);
     res.status(500).json({ message: "Error processing mapping", error: error.message });
   }
 };
+
 
 
 // Get all mapped data (remove `_id`)
@@ -239,9 +228,5 @@ exports.getMappedDataByQtestId = async (req, res) => {
     res.status(500).json({ message: "Error retrieving data", error });
   }
 };
-
-
-
-
 
 
