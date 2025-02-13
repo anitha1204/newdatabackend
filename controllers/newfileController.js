@@ -117,29 +117,31 @@ exports.newfiledata = async (req, res) => {
   try {
     const { almName, qtestId, qtestName } = req.body;
 
-    // Find all matching entities with the given almName
+    // Find the entry in Valuefile
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
-      { "entities.Fields": 1, _id: 0 }
+      { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
     );
 
     if (!Newdatafile) {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Collect all values where Name matches almName
-    let valuesToStore = [];
+    // Find the field in the document
+    let matchedField = null;
     Newdatafile.entities.forEach(entity => {
-      entity.Fields.forEach(field => {
-        if (field.Name === almName && field.values?.length > 0) {
-          field.values.forEach(val => {
-            if (val.value) {
-              valuesToStore.push(val.value);
-            }
-          });
-        }
-      });
+      const field = entity.Fields.find(f => f.Name === almName);
+      if (field) {
+        matchedField = field;
+      }
     });
+
+    if (!matchedField) {
+      return res.status(404).json({ message: "No matching field found" });
+    }
+
+    // Extract values (storing multiple values)
+    const valuesToStore = matchedField.values?.slice(0, 5).map(v => v.value) || [];
 
     if (valuesToStore.length === 0) {
       return res.status(400).json({ message: "No values found for the specified field" });
@@ -149,42 +151,24 @@ exports.newfiledata = async (req, res) => {
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
-      mappingDocument = new Newfile({ name: "masterArray", properties: [] });
-    }
-
-    // Check if qtestId already exists
-    const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-    if (exists) {
-      return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
-    }
-
-    // Function to split values into multiple sub-arrays
-    const chunkValues = (values, chunkSizes) => {
-      let result = [];
-      let index = 0;
-      for (let size of chunkSizes) {
-        if (index < values.length) {
-          result.push(values.slice(index, index + size));
-          index += size;
-        }
-      }
-      return result;
-    };
-
-    // Define how many values each array should contain
-    const chunkSizes = [2, 3, 4, 5, 6]; // You can modify this pattern
-
-    // Group values
-    let groupedValues = chunkValues(valuesToStore, chunkSizes);
-
-    // Push structured data into properties
-    groupedValues.forEach(group => {
-      mappingDocument.properties.push({
-        field_name: qtestName,
-        field_id: qtestId,
-        field_value: group
+      // Create a new document if it doesn't exist
+      mappingDocument = new Newfile({
+        name: "masterArray",
+        properties: [
+          { field_name: qtestName, field_id: qtestId, field_values: valuesToStore }
+        ]
       });
-    });
+    } else {
+      // Check if the field_id already exists
+      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+
+      if (exists) {
+        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+      }
+
+      // Add new property with multiple values
+      mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_values: valuesToStore });
+    }
 
     // Save document
     await mappingDocument.save();
@@ -206,7 +190,7 @@ exports.getMappedData = async (req, res) => {
       return res.status(404).json({ message: "No mapped data found" });
     }
 
-    delete mappingDocument._id; // 🚨 Remove `_id` before sending response
+    delete mappingDocument._id;
 
     res.status(200).json(mappingDocument);
   } catch (error) {
@@ -214,13 +198,12 @@ exports.getMappedData = async (req, res) => {
   }
 };
 
-
-// Get mapped data by qtestId (remove `_id`)
+// Get mapped data by qtestId
 exports.getMappedDataByQtestId = async (req, res) => {
   try {
     const { qtestId } = req.params;
     const mappingDocument = await Newfile.findOne(
-      { name: "masterArray", "properties.qtestId": qtestId },
+      { name: "masterArray", "properties.field_id": qtestId },
       { "properties.$": 1 }
     );
 
@@ -236,5 +219,3 @@ exports.getMappedDataByQtestId = async (req, res) => {
     res.status(500).json({ message: "Error retrieving data", error });
   }
 };
-
-
