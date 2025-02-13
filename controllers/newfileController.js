@@ -127,7 +127,7 @@ exports.newfiledata = async (req, res) => {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Find the field in the document
+    // Extract the field from entities
     let matchedField = null;
     Newdatafile.entities.forEach(entity => {
       const field = entity.Fields.find(f => f.Name === almName);
@@ -140,7 +140,7 @@ exports.newfiledata = async (req, res) => {
       return res.status(404).json({ message: "No matching field found" });
     }
 
-    // Get all values to store (up to 5)
+    // Get values (up to 5)
     const valuesToStore = matchedField.values
       ?.slice(0, 5)
       .map(v => v.value)
@@ -150,22 +150,11 @@ exports.newfiledata = async (req, res) => {
       return res.status(400).json({ message: "No values found for the specified field" });
     }
 
-    // Structure the values into nested arrays of objects
-    const structuredValues = valuesToStore.map((value, index) => ({
-      mainValue: value,
-      valueIndex: index + 1,
-      subValues: [
-        {
-          type: "primary",
-          value: value,
-          timestamp: new Date()
-        },
-        {
-          type: "secondary",
-          value: `${value}_processed`,
-          timestamp: new Date()
-        }
-      ]
+    // Structure the values as array of objects
+    const structuredValues = valuesToStore.map(value => ({
+      field_id: qtestId,
+      field_name: qtestName,
+      field_value: value
     }));
 
     // Find or create the masterArray document
@@ -175,17 +164,7 @@ exports.newfiledata = async (req, res) => {
       // Create a new document if it doesn't exist
       mappingDocument = new Newfile({
         name: "masterArray",
-        properties: [{
-          field_name: qtestName,
-          field_id: qtestId,
-          field_data: {
-            values: structuredValues,
-            metadata: {
-              totalCount: structuredValues.length,
-              lastUpdated: new Date()
-            }
-          }
-        }]
+        properties: structuredValues
       });
     } else {
       // Check if the field_id already exists
@@ -195,18 +174,8 @@ exports.newfiledata = async (req, res) => {
         return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
       }
 
-      // Add new property with nested structure
-      mappingDocument.properties.push({
-        field_name: qtestName,
-        field_id: qtestId,
-        field_data: {
-          values: structuredValues,
-          metadata: {
-            totalCount: structuredValues.length,
-            lastUpdated: new Date()
-          }
-        }
-      });
+      // Add new structured values
+      mappingDocument.properties.push(...structuredValues);
     }
 
     // Save document
@@ -222,6 +191,7 @@ exports.newfiledata = async (req, res) => {
     res.status(500).json({ message: "Error processing mapping", error: error.message });
   }
 };
+
 
 exports.getMappedData = async (req, res) => {
   try {
