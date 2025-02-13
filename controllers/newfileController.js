@@ -119,22 +119,21 @@ exports.newfiledata = async (req, res) => {
   try {
     const { almName, qtestId, qtestName } = req.body;
 
-    // Find all entries in Valuefile where any field matches almName
+    // Find the entry in Valuefile
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
-      { "entities.Fields": 1, _id: 0 }
+      { "entities.Fields.Name": 1, "entities.Fields.values": 1, _id: 0 }
     );
 
     if (!Newdatafile) {
       return res.status(404).json({ message: "No matching record found" });
     }
 
-    // Collect all matching field values
+    // Extract all matching fields and their values
     let valuesToStore = [];
-
     Newdatafile.entities.forEach(entity => {
       entity.Fields.forEach(field => {
-        if (field.Name === almName && field.values?.length > 0) {
+        if (field.Name === almName && field.values?.length) {
           field.values.forEach(val => {
             if (val.value) valuesToStore.push(val.value);
           });
@@ -150,32 +149,32 @@ exports.newfiledata = async (req, res) => {
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
+      // Create a new document if it doesn't exist
       mappingDocument = new Newfile({
         name: "masterArray",
-        properties: []
+        properties: valuesToStore.map(value => ({
+          field_name: qtestName,
+          field_id: qtestId,
+          field_value: value
+        }))
+      });
+    } else {
+      // Prevent duplicate qtestId entries
+      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+      if (exists) {
+        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+      }
+
+      // Add all extracted values
+      valuesToStore.forEach(value => {
+        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: value });
       });
     }
-
-    // Check if the field_id already exists
-    const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-    if (exists) {
-      return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
-    }
-
-    // Add new property with multiple values
-    mappingDocument.properties.push({
-      field_name: qtestName,
-      field_id: qtestId,
-      field_values: valuesToStore // Store multiple values
-    });
 
     // Save document
     await mappingDocument.save();
 
-    res.status(200).json({
-      message: "Mapping saved successfully",
-      data: mappingDocument.properties
-    });
+    res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
 
   } catch (error) {
     console.error("Error processing mapping:", error);
