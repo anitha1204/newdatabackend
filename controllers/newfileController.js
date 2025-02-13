@@ -163,7 +163,7 @@ exports.newfiledata = async (req, res) => {
     const distributeValuesIntoFiveArrays = (values) => {
       let result = [[], [], [], [], []]; // Create 5 empty arrays
       values.forEach((val, index) => {
-        result[index % 5].push(val); // Distribute values across 5 arrays in a round-robin manner
+        result[index % 5].push(val); // Distribute values across 5 arrays
       });
       return result;
     };
@@ -171,17 +171,20 @@ exports.newfiledata = async (req, res) => {
     // Distribute values across 5 arrays
     let groupedValues = distributeValuesIntoFiveArrays(valuesToStore);
 
-    // Store the data inside a single array in the properties field
-    mappingDocument.properties.push({
-      field_name: qtestName,
-      field_id: qtestId,
-      field_value: groupedValues, // Store all 5 arrays inside this field_value
+    // Push structured data into properties
+    groupedValues.forEach((group, index) => {
+      mappingDocument.properties.push({
+        field_name: `${qtestName} - Group ${index + 1}`,
+        field_id: qtestId,
+        field_value: group
+      });
     });
 
     // Save document
     await mappingDocument.save();
 
     res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
+
   } catch (error) {
     console.error("Error processing mapping:", error);
     res.status(500).json({ message: "Error processing mapping", error: error.message });
