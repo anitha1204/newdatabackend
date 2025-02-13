@@ -151,26 +151,42 @@ exports.newfiledata = async (req, res) => {
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
     if (!mappingDocument) {
-      mappingDocument = new Newfile({
-        name: "masterArray",
-        properties: valuesToStore.map(value => ({
-          field_name: qtestName,
-          field_id: qtestId,
-          field_value: value
-        }))
-      });
-    } else {
-      // Check if qtestId already exists
-      const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-      if (exists) {
-        return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
-      }
-
-      // Add multiple values to properties
-      valuesToStore.forEach(value => {
-        mappingDocument.properties.push({ field_name: qtestName, field_id: qtestId, field_value: value });
-      });
+      mappingDocument = new Newfile({ name: "masterArray", properties: [] });
     }
+
+    // Check if qtestId already exists
+    const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
+    if (exists) {
+      return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
+    }
+
+    // Function to split values into multiple sub-arrays
+    const chunkValues = (values, chunkSizes) => {
+      let result = [];
+      let index = 0;
+      for (let size of chunkSizes) {
+        if (index < values.length) {
+          result.push(values.slice(index, index + size));
+          index += size;
+        }
+      }
+      return result;
+    };
+
+    // Define how many values each array should contain
+    const chunkSizes = [2, 3, 4, 5, 6]; // You can modify this pattern
+
+    // Group values
+    let groupedValues = chunkValues(valuesToStore, chunkSizes);
+
+    // Push structured data into properties
+    groupedValues.forEach(group => {
+      mappingDocument.properties.push({
+        field_name: qtestName,
+        field_id: qtestId,
+        field_value: group
+      });
+    });
 
     // Save document
     await mappingDocument.save();
@@ -182,6 +198,7 @@ exports.newfiledata = async (req, res) => {
     res.status(500).json({ message: "Error processing mapping", error: error.message });
   }
 };
+
 
 
 
