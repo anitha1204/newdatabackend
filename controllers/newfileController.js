@@ -111,15 +111,14 @@
 
 
 
-
 const Newfile = require("../models/newfileModel");
 const { Valuefile } = require("../models/almModel");
 
 exports.newfiledata = async (req, res) => {
   try {
-    const { almName, qtestId, qtestName } = req.body;
+    const { almName, n } = req.body; // n is the number of values per sub-array
 
-    // Find all matching entities with the given almName
+    // Find the document with matching almName
     const Newdatafile = await Valuefile.findOne(
       { "entities.Fields.Name": almName },
       { "entities.Fields": 1, _id: 0 }
@@ -147,6 +146,18 @@ exports.newfiledata = async (req, res) => {
       return res.status(400).json({ message: "No values found for the specified field" });
     }
 
+    // Function to split array into chunks of size n
+    const splitIntoChunks = (array, size) => {
+      let result = [];
+      for (let i = 0; i < array.length; i += size) {
+        result.push(array.slice(i, i + size));
+      }
+      return result;
+    };
+
+    // Split values into arrays of size n
+    const splitArrays = splitIntoChunks(valuesToStore, n);
+
     // Find or create the masterArray document
     let mappingDocument = await Newfile.findOne({ name: "masterArray" });
 
@@ -154,50 +165,30 @@ exports.newfiledata = async (req, res) => {
       mappingDocument = new Newfile({ name: "masterArray", properties: [] });
     }
 
-    // Check if qtestId already exists
-    const exists = mappingDocument.properties.some(prop => prop.field_id === qtestId);
-    if (exists) {
-      return res.status(400).json({ message: "Duplicate entry: qtestId already exists" });
-    }
-
-    // Function to split values into multiple sub-arrays
-    const chunkValues = (values, chunkSizes) => {
-      let result = [];
-      let index = 0;
-      for (let size of chunkSizes) {
-        if (index < values.length) {
-          result.push(values.slice(index, index + size));
-          index += size;
-        }
-      }
-      return result;
-    };
-
-    // Define how many values each array should contain
-    const chunkSizes = [2, 3, 4, 5, 6]; // You can modify this pattern
-
-    // Group values
-    let groupedValues = chunkValues(valuesToStore, chunkSizes);
-
-    // Push structured data into properties
-    groupedValues.forEach(group => {
+    // Add each split array as a new property
+    splitArrays.forEach((arrayChunk, index) => {
       mappingDocument.properties.push({
-        field_name: qtestName,
-        field_id: qtestId,
-        field_value: group
+        field_name: `${almName}_part${index + 1}`,
+        field_id: `${almName}_${index + 1}`,
+        field_value: arrayChunk
       });
     });
 
     // Save document
     await mappingDocument.save();
 
-    res.status(200).json({ message: "Mapping saved successfully", data: mappingDocument.properties });
+    res.status(200).json({ 
+      message: "Arrays split and saved successfully", 
+      data: mappingDocument.properties 
+    });
 
   } catch (error) {
-    console.error("Error processing mapping:", error);
-    res.status(500).json({ message: "Error processing mapping", error: error.message });
+    console.error("Error processing array split:", error);
+    res.status(500).json({ message: "Error processing array split", error: error.message });
   }
 };
+
+
 
 
 // Get all mapped data (remove `_id`)
