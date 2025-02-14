@@ -1,42 +1,38 @@
 [
     {
-        "id": 1741971,
-        "label": "Status"
+        "fieldname": "Status"
     },
     {
-        "id": 1741972,
-        "label": "Start Date"
+        "fieldname":"name"
     },
     {
-        "id": 1741975,
-        "label": "End Date"
+        "fieldname": "Start Date"
     },
     {
-        "id": 1741976,
-        "label": "Description"
+        "fieldname": "End Date"
     },
     {
-        "id": 1741977,
-        "label": "Release Note"
+        "fieldname": "Description"
     },
     {
-        "id": 1741964,
-        "label": "Date Custom"
+        "fieldname": "Release Note"
     },
     {
-        "id": 1741965,
-        "label": "String Custom"
+        "fieldname": "Date Custom"
     },
     {
-        "id": 1741966,
-        "label": "HTML Custom"
+        "fieldname": "String Custom"
     },
     {
-        "id": 1741967,
-        "label": "User Custom"
+        "fieldname": "HTML Custom"
     },
     {
-        "id": 1741968,
-        "label": "Combo Custom"
+        "fieldname": "User Custom"
+    },
+    {
+        "fieldname": "Combo Custom"
+    },
+    {
+        "fieldname": "ALM Release-Id"
     }
 ]

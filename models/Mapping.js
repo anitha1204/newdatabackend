@@ -1,11 +1,9 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
-const mappingSchema = new mongoose.Schema({
-  almId: String,
-  almName: String,
-  qtestId: String,
-  qtestName: String,
-  color: String,
-});
+// const mappingSchema = new mongoose.Schema({
+//  almName: String,
+//  qtestName: String,
 
-module.exports = mongoose.model("Mapping", mappingSchema);
+// });
+
+// module.exports = mongoose.model("Mapping", mappingSchema);

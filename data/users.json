@@ -1,111 +1,53 @@
 [
     {
-        "_ids": 1,
-        "label": "Attachment",
-        "name": "has-attachments",
-        "physicalName": "REL_HAS_ATTACHMENTS"
+        "fieldname": "Attachment"
     },
     {
-        "_ids": 2,
-        "label": "Start Date",
-        "name": "start-date",
-        "physicalName": "REL_START_DATE"
-       
+        "fieldname": "Combo Custom"
     },
     {
-        "_ids": 3,
-        "label": "End Date",
-        "name": "end-date",
-        "physicalName": "REL_END_DATE"
-       
+        "fieldname": "Count of milestone in release"
     },
     {
-        "_ids": 4,
-        "label": "Description",
-        "name": "description",
-        "physicalName": "REL_DESCRIPTION"
-       
+        "fieldname": "Count of scope items in release"
     },
     {
-        "_ids": 5,
-        "label": "Count of scope items in release",
-        "name": "scope-items-count",
-        "physicalName": "REL_SCOPE_ITEMS_COUNT"
+        "fieldname": "Date Custom"
     },
     {
-        "_ids": 6,
-        "label": "Date Custom",
-        "name": "user-02",
-        "physicalName": "REL_USER_02"
-       
+        "fieldname": "Description"
     },
     {
-        "_ids": 7,
-        "label": "String Custom",
-        "name": "user-01",
-        "physicalName": "REL_USER_01"
-       
+        "fieldname": "End Date"
     },
     {
-        "_ids": 8,
-        "label": "HTML Custom",
-        "name": "user-05",
-        "physicalName": "REL_USER_05"
+        "fieldname": "HTML Custom"
     },
     {
-        "_ids": 9,
-        "label": "User Custom",
-        "name": "user-03",
-        "physicalName": "REL_USER_03"
-       
+        "fieldname": "Modified"
     },
     {
-        "_ids": 10,
-        "label": "Combo Custom",
-        "name": "user-04",
-        "physicalName": "REL_USER_04"
-       
+        "fieldname": "Name"
     },
     {
-        "_ids": 11,
-        "label": "Release Folder ID",
-        "name": "parent-id",
-        "physicalName": "REL_PARENT_ID"
+        "fieldname": "Release Folder ID"
     },
     {
-        "_ids": 12,
-        "label": "Release ID",
-        "name": "id",
-        "physicalName": "REL_ID"
+        "fieldname": "Release ID"
     },
     {
-        "_ids": 13,
-        "label": "Requirement count",
-        "name": "req-count",
-        "physicalName": "REL_REQ_COUNT"
+        "fieldname": "Requirement count"
     },
     {
-        "_ids": 14,
-        "label": "Name",
-        "name": "name",
-        "physicalName": "REL_NAME"
+        "fieldname": "Start Date"
     },
     {
-        "_ids": 15,
-        "label": "Count of milestone in release",
-        "name": "milestones-count",
-        "physicalName": "REL_MILESTONES_COUNT"
+        "fieldname": "String Custom"
     },
     {
-        "_ids": 16,
-        "label": "Modified",
-        "name": "last-modified",
-        "physicalName": "REL_VTS"
+        "fieldname": "User Custom"
     },
     {
-        "_ids": 17,
-        "label": "Version Stamp",
-        "name": "ver-stamp",
-        "physicalName": "REL_VER_STAMP"
+        "fieldname": "Version Stamp"
     }
 ]
