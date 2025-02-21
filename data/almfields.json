@@ -1,0 +1,230 @@
+[
+    {
+        "fieldname": "Attachment"
+    },
+    {
+        "fieldname": "Author"
+    },
+    {
+        "fieldname": "Comments"
+    },
+    {
+        "fieldname": "Creation Date"
+    },
+    {
+        "fieldname": "Creation Time"
+    },
+    {
+        "fieldname": "Description"
+    },
+    {
+        "fieldname": "Direct Cover Status"
+    },
+    {
+        "fieldname": "Doc Reference"
+    },
+    {
+        "fieldname": "Has Rich Text"
+    },
+    {
+        "fieldname": "Has linkage"
+    },
+    {
+        "fieldname": "Is Template"
+    },
+    {
+        "fieldname": "Modified"
+    },
+    {
+        "fieldname": "Name"
+    },
+    {
+        "fieldname": "Number of sons"
+    },
+    {
+        "fieldname": "Old Type (obsolete)"
+    },
+    {
+        "fieldname": "PPM Assigned To"
+    },
+    {
+        "fieldname": "PPM Request Id"
+    },
+    {
+        "fieldname": "PPM Request Note"
+    },
+    {
+        "fieldname": "PPM Request Status"
+    },
+    {
+        "fieldname": "PPM Request Type"
+    },
+    {
+        "fieldname": "PPM Server URL"
+    },
+    {
+        "fieldname": "PPM Synchronization Data"
+    },
+    {
+        "fieldname": "Priority"
+    },
+    {
+        "fieldname": "Product"
+    },
+    {
+        "fieldname": "RBQM Analysis result data"
+    },
+    {
+        "fieldname": "RBQM Analysis setup data"
+    },
+    {
+        "fieldname": "RBQM Assessment data"
+    },
+    {
+        "fieldname": "RBQM Date of last Analysis"
+    },
+    {
+        "fieldname": "RBQM Exclude from analysis"
+    },
+    {
+        "fieldname": "RBQM Functional Complexity"
+    },
+    {
+        "fieldname": "RBQM ID of parent analysis req"
+    },
+    {
+        "fieldname": "RBQM Risk"
+    },
+    {
+        "fieldname": "RBQM custom Functional Complexity"
+    },
+    {
+        "fieldname": "RBQM custom Risk"
+    },
+    {
+        "fieldname": "RBQM custom failure probability"
+    },
+    {
+        "fieldname": "RBQM custom testing hours"
+    },
+    {
+        "fieldname": "RBQM custom testing level"
+    },
+    {
+        "fieldname": "RBQM effective Functional Complexity"
+    },
+    {
+        "fieldname": "RBQM effective Risk"
+    },
+    {
+        "fieldname": "RBQM effective failure probability"
+    },
+    {
+        "fieldname": "RBQM estimated RnD effort"
+    },
+    {
+        "fieldname": "RBQM failure probability"
+    },
+    {
+        "fieldname": "RBQM testing hours"
+    },
+    {
+        "fieldname": "RBQM testing level"
+    },
+    {
+        "fieldname": "RBQM use custom Functional Complexity"
+    },
+    {
+        "fieldname": "RBQM use custom Risk"
+    },
+    {
+        "fieldname": "RBQM use custom failure probability"
+    },
+    {
+        "fieldname": "RBQM use custom results"
+    },
+    {
+        "fieldname": "Req Father ID"
+    },
+    {
+        "fieldname": "Req ID"
+    },
+    {
+        "fieldname": "Req Order ID"
+    },
+    {
+        "fieldname": "Req Parent"
+    },
+    {
+        "fieldname": "Req Path"
+    },
+    {
+        "fieldname": "Requirement Type"
+    },
+    {
+        "fieldname": "Reviewed"
+    },
+    {
+        "fieldname": "Reviewer"
+    },
+    {
+        "fieldname": "Rich Text"
+    },
+    {
+        "fieldname": "Target Cycle"
+    },
+    {
+        "fieldname": "Target Cycle Internal"
+    },
+    {
+        "fieldname": "Target Release"
+    },
+    {
+        "fieldname": "Target Release Internal"
+    },
+    {
+        "fieldname": "Version Check In Comments"
+    },
+    {
+        "fieldname": "Version Check In Date"
+    },
+    {
+        "fieldname": "Version Check In Time"
+    },
+    {
+        "fieldname": "Version Check Out Comments"
+    },
+    {
+        "fieldname": "Version Check Out Date"
+    },
+    {
+        "fieldname": "Version Check Out Time"
+    },
+    {
+        "fieldname": "Version Checked In By"
+    },
+    {
+        "fieldname": "Version Checked Out By"
+    },
+    {
+        "fieldname": "Version Number"
+    },
+    {
+        "fieldname": "Version Status"
+    },
+    {
+        "fieldname": "upgrade.RQ_RBT_BSNS_IMPACT"
+    },
+    {
+        "fieldname": "upgrade.RQ_RBT_CUSTOM_BSNS_IMPACT"
+    },
+    {
+        "fieldname": "upgrade.RQ_RBT_EFFECTIVE_BSNS_IMPACT"
+    },
+    {
+        "fieldname": "upgrade.RQ_RBT_USE_CUSTOM_BSNS_IMPACT"
+    },
+    {
+        "fieldname": ""
+    }
+]

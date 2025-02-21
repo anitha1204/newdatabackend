@@ -8,6 +8,8 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const almRoutes = require("./routes/almRoutes");
 const qtestRoutes = require("./routes/qtestRoutes");
+const almfieldsRoutes = require('./routes/almfieldsRoutes');
+const qtestfieldsRoutes = require('./routes/qtestfieldsRoutes');
 // const mappingRoutes = require('./routes/mappingRoutes');
 const valuefileRoutes = require('./routes/valuefileRoutes');
 const newfileRoutes = require('./routes/newfileRoutes') 
@@ -28,6 +30,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use("/api/alm", almRoutes);
 app.use("/api/qtest", qtestRoutes);
+app.use('/api', almfieldsRoutes);
+app.use('/api',qtestfieldsRoutes);
 // app.use("/api/mappings", mappingRoutes);
 app.use('/api', valuefileRoutes);
 app.use('/api/new', newfileRoutes);

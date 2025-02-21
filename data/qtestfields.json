@@ -1,0 +1,32 @@
+[
+    {
+        "fieldname": "name"
+    },
+    {
+        "fieldname": "Status"
+    },
+    {
+        "fieldname": "Priority"
+    },
+    {
+        "fieldname": "Type"
+    },
+    {
+        "fieldname": "Assigned To"
+    },
+    {
+        "fieldname": "Description"
+    },
+    {
+        "fieldname": "Req Id"
+    },
+    {
+        "fieldname": "Reviewed"
+    },
+    {
+        "fieldname": "Doc reference"
+    },
+    {
+        "fieldname": "Reviewer"
+    }
+]
