@@ -60,12 +60,14 @@ const valuefileSchema = new Schema({
 
 // ALM schema definition
 const almSchema = new Schema({
-    fieldname: { type: String, required: true }
+    fieldname: { type: String, required: true },
+    mappedTo: [{ type: Schema.Types.ObjectId, ref: "Qtest" }]
 })
 
 // Qtest Schema
 const qtestSchema = new Schema({
- fieldname: { type: String, required: true },
+    fieldname: { type: String, required: true },
+    mappedTo: [{ type: Schema.Types.ObjectId, ref: "Alm" }]
 });
 
 const ALM = mongoose.model("ALM", almSchema);

@@ -69,7 +69,7 @@ const { ALM } = require("../models/almModel");
 
 exports.getALMFields = async (req, res) => {
   try {
-    const almFields = await ALM.find();
+    const almFields = await ALM.find().populate("mappedTo");;
     res.status(200).json(almFields);
   } catch (error) {
     res.status(500).json({ message: "Error fetching ALM fields", error });

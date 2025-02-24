@@ -61,7 +61,7 @@
 
 exports.getQTestFields = async (req, res) => {
   try {
-    const qTestFields = await Qtest.find();
+    const qTestFields = await Qtest.find().populate("mappedTo");
     res.status(200).json(qTestFields);
   } catch (error) {
     res.status(500).json({ message: "Error fetching qTest fields", error });
