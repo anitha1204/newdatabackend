@@ -58,20 +58,25 @@ const valuefileSchema = new Schema({
     TotalResults: { type: Number, required: true }
 });
 
-// ALM schema definition
+
+// ALM Schema
 const almSchema = new Schema({
+    fieldname: { type: String, required: true }
+  });
+  
+  const ALM = mongoose.model("ALM", almSchema); // ✅ Register Alm model
+  
+  // QTest Schema
+  const qtestSchema = new Schema({
     fieldname: { type: String, required: true },
-    mappedTo: [{ type: Schema.Types.ObjectId, ref: "Qtest" }]
-})
+    mappedTo: { type: Schema.Types.ObjectId, ref: "Alm" } // ✅ Reference the correct model name
+  });
+  
+  const Qtest = mongoose.model("Qtest", qtestSchema); // ✅ Register Qtest model
+  
 
-// Qtest Schema
-const qtestSchema = new Schema({
-    fieldname: { type: String, required: true },
-    mappedTo: [{ type: Schema.Types.ObjectId, ref: "Alm" }]
-});
-
-const ALM = mongoose.model("ALM", almSchema);
-const Qtest = mongoose.model("Qtest", qtestSchema);
+// const ALM = mongoose.model("ALM", almSchema);
+// const Qtest = mongoose.model("Qtest", qtestSchema);
 const Valuefile = mongoose.model("Valuefile", valuefileSchema);
 
 module.exports = { ALM, Qtest, Valuefile };
