@@ -1,32 +1,187 @@
-[
+{
+  "entities": [
     {
-        "name": "qTest Sample-1",
-        "properties": [
+      "Fields": [
+        {
+          "Name": "last-modified",
+          "values": []
+        },
+        {
+          "Name": "ver-stamp",
+          "values": [
             {
-                "qtestName": "String Custom",
-                "qtestId": "1741965",
-                "value": "This is String field",
-                "_id": {
-                  "$oid": "67a9e54c91bb25e09e09e998"
-                }
-              },
-              {
-                "qtestName": "Description",
-                "qtestId": "1741976",
-                "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test</span></font>\n</div> \n</body></html>",
-                "_id": {
-                  "$oid": "67a9e4ea91bb25e09e09e980"
-                }
-              },
-              {
-                "qtestName": "Description",
-                "qtestId": "1741976",
-                "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test</span></font>\n</div> \n</body></html>",
-                "_id": {
-                  "$oid": "67a9e4ea91bb25e09e09e980"
-                }
-              }
-        ]
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Name": "attachment",
+          "values": [
+            {}
+          ]
+        },
+        {
+          "Name": "workflow",
+          "values": [
+            {}
+          ]
+        },
+        {
+          "Name": "hierarchical-path",
+          "values": [
+            {
+              "value": "AAA"
+            }
+          ]
+        },
+        {
+          "Name": "name",
+          "values": [
+            {
+              "value": "Root"
+            }
+          ]
+        },
+        {
+          "Name": "description",
+          "values": [
+            {}
+          ]
+        },
+        {
+          "Name": "no-of-sons",
+          "values": []
+        },
+        {
+          "Name": "id",
+          "values": [
+            {
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "Name": "parent-id",
+          "values": [
+            {
+              "value": "-1"
+            }
+          ]
+        },
+        {
+          "Name": "order-id",
+          "values": [
+            {
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Name": "assign-rcyc",
+          "values": [
+            {}
+          ]
+        }
+      ],
+      "Type": "test-set-folder",
+      "children-count": 0
+    },
+    {
+      "Fields": [
+        {
+          "Name": "last-modified",
+          "values": [
+            {
+              "value": "2015-01-22 17:55:15"
+            }
+          ]
+        },
+        {
+          "Name": "ver-stamp",
+          "values": [
+            {
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Name": "attachment",
+          "values": [
+            {}
+          ]
+        },
+        {
+          "Name": "workflow",
+          "values": [
+            {}
+          ]
+        },
+        {
+          "Name": "hierarchical-path",
+          "values": [
+            {
+              "value": "AAAAAA"
+            }
+          ]
+        },
+        {
+          "Name": "name",
+          "values": [
+            {
+              "value": "BPT tests (Flight)"
+            }
+          ]
+        },
+        {
+          "Name": "description",
+          "values": [
+            {
+              "value": "<html><body>\nThis folder contains test sets containing business process tests of the Flight Reservations appplication.\n<body><html>"
+            }
+          ]
+        },
+        {
+          "Name": "no-of-sons",
+          "values": [
+            {
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "Name": "id",
+          "values": [
+            {
+              "value": "5"
+            }
+          ]
+        },
+        {
+          "Name": "parent-id",
+          "values": [
+            {
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "Name": "order-id",
+          "values": [
+            {
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Name": "assign-rcyc",
+          "values": [
+            {}
+          ]
+        }
+      ],
+      "Type": "test-set-folder",
+      "children-count": 0
     }
-   
-]
+  ],
+  "TotalResults": 28
+}

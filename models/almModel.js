@@ -43,22 +43,24 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-// Valuefile Schema
+// Define Valuefile Schema
 const valuefileSchema = new Schema({
-    entities: [{
-        Fields: [{
+    entities: [
+      {
+        Fields: [
+          {
             Name: { type: String, required: true },
-            values: [{
-                value: { type: String, default: "" }
-            }]
-        }],
+            values: [{ value: { type: String, default: null } }],
+          },
+        ],
         Type: { type: String, required: true },
-        "children-count": { type: Number, default: 0 }
-    }],
-    TotalResults: { type: Number, required: true }
-});
+        "children-count": { type: Number, default: 0 },
+      },
+    ],
+    TotalResults: { type: Number, default: 0 },
+  });
 
-// ALM schema definition
+
 const almSchema = new Schema({
     fieldname: { type: String, required: true }
 })

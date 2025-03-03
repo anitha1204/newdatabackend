@@ -1,708 +1,188 @@
 {
     "entities": [
         {
-            "Type": "release",
             "Fields": [
                 {
+                    "Name": "last-modified",
+                    "values": []
+                },
+                {
+                    "Name": "ver-stamp",
                     "values": [
                         {
                             "value": "1"
                         }
-                    ],
-                    "Name": "req-count"
+                    ]
                 },
                 {
+                    "Name": "attachment",
+                    "values": [
+                        {}
+                    ]
+                },
+                {
+                    "Name": "workflow",
+                    "values": [
+                        {}
+                    ]
+                },
+                {
+                    "Name": "hierarchical-path",
                     "values": [
                         {
-                            "value": "6"
+                            "value": "AAA"
                         }
-                    ],
-                    "Name": "ver-stamp"
+                    ]
                 },
                 {
+                    "Name": "name",
                     "values": [
                         {
-                            "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test</span></font>\n</div>  \n</body></html>"
+                            "value": "Root"
                         }
-                    ],
-                    "Name": "description"
+                    ]
                 },
                 {
+                    "Name": "description",
+                    "values": [
+                        {}
+                    ]
+                },
+                {
+                    "Name": "no-of-sons",
+                    "values": []
+                },
+                {
+                    "Name": "id",
                     "values": [
                         {
                             "value": "0"
                         }
-                    ],
-                    "Name": "scope-items-count"
+                    ]
                 },
                 {
+                    "Name": "parent-id",
                     "values": [
                         {
-                            "value": "2025-01-25T00:00:00+00:00"
+                            "value": "-1"
                         }
-                    ],
-                    "Name": "start-date"
+                    ]
                 },
                 {
+                    "Name": "order-id",
+                    "values": [
+                        {
+                            "value": "1"
+                        }
+                    ]
+                },
+                {
+                    "Name": "assign-rcyc",
                     "values": [
                         {}
-                    ],
-                    "Name": "has-attachments"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-01-25T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "end-date"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-01-12 15:18:13"
-                        }
-                    ],
-                    "Name": "last-modified"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "sammple New Release-1"
-                        }
-                    ],
-                    "Name": "name"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "This is String field"
-                        }
-                    ],
-                    "Name": "user-01"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "milestones-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1008"
-                        }
-                    ],
-                    "Name": "id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "parent-id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample 1"
-                        },
-                        {
-                            "value": "Sample 3"
-                        }
-                    ],
-                    "Name": "user-04"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body>\nThis is HTML field\n</body></html>"
-                        }
-                    ],
-                    "Name": "user-05"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-01-25"
-                        }
-                    ],
-                    "Name": "user-02"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "krishnaprasanth"
-                        }
-                    ],
-                    "Name": "user-03"
+                    ]
                 }
             ],
+            "Type": "test-set-folder",
             "children-count": 0
         },
         {
-            "Type": "release",
             "Fields": [
                 {
+                    "Name": "last-modified",
                     "values": [
                         {
-                            "value": "0"
+                            "value": "2015-01-22 17:55:15"
                         }
-                    ],
-                    "Name": "req-count"
+                    ]
                 },
                 {
+                    "Name": "ver-stamp",
                     "values": [
                         {
                             "value": "1"
                         }
-                    ],
-                    "Name": "ver-stamp"
+                    ]
                 },
                 {
-                    "values": [
-                        {
-                            "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test2</span></font>\n</div>  \n</body></html>"
-                        }
-                    ],
-                    "Name": "description"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "scope-items-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-12T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "start-date"
-                },
-                {
+                    "Name": "attachment",
                     "values": [
                         {}
-                    ],
-                    "Name": "has-attachments"
+                    ]
                 },
                 {
-                    "values": [
-                        {
-                            "value": "2025-02-13T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "end-date"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-01-12 15:16:38"
-                        }
-                    ],
-                    "Name": "last-modified"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample New Release-2"
-                        }
-                    ],
-                    "Name": "name"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "string custom2"
-                        }
-                    ],
-                    "Name": "user-01"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "milestones-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1009"
-                        }
-                    ],
-                    "Name": "id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "parent-id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample 2"
-                        }
-                    ],
-                    "Name": "user-04"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body>\nhtml custom2\n</body></html>"
-                        }
-                    ],
-                    "Name": "user-05"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-13"
-                        }
-                    ],
-                    "Name": "user-02"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "nikhilesh"
-                        }
-                    ],
-                    "Name": "user-03"
-                }
-            ],
-            "children-count": 0
-        },
-        {
-            "Type": "release",
-            "Fields": [
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "req-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "ver-stamp"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test3</span></font>\n</div>  \n</body></html>"
-                        }
-                    ],
-                    "Name": "description"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "scope-items-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-12T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "start-date"
-                },
-                {
+                    "Name": "workflow",
                     "values": [
                         {}
-                    ],
-                    "Name": "has-attachments"
+                    ]
                 },
                 {
+                    "Name": "hierarchical-path",
                     "values": [
                         {
-                            "value": "2025-02-14T00:00:00+00:00"
+                            "value": "AAAAAA"
                         }
-                    ],
-                    "Name": "end-date"
+                    ]
                 },
                 {
+                    "Name": "name",
                     "values": [
                         {
-                            "value": "2025-01-12 15:17:57"
+                            "value": "BPT tests (Flight)"
                         }
-                    ],
-                    "Name": "last-modified"
+                    ]
                 },
                 {
+                    "Name": "description",
                     "values": [
                         {
-                            "value": "Sample New Release-3"
+                            "value": "<html><body>\nThis folder contains test sets containing business process tests of the Flight Reservations application.\n</body></html>"
                         }
-                    ],
-                    "Name": "name"
+                    ]
                 },
                 {
-                    "values": [
-                        {
-                            "value": "stringcustom3"
-                        }
-                    ],
-                    "Name": "user-01"
-                },
-                {
+                    "Name": "no-of-sons",
                     "values": [
                         {
                             "value": "0"
                         }
-                    ],
-                    "Name": "milestones-count"
+                    ]
                 },
                 {
+                    "Name": "id",
                     "values": [
                         {
-                            "value": "1010"
+                            "value": "5"
                         }
-                    ],
-                    "Name": "id"
+                    ]
                 },
                 {
+                    "Name": "parent-id",
+                    "values": [
+                        {
+                            "value": "0"
+                        }
+                    ]
+                },
+                {
+                    "Name": "order-id",
                     "values": [
                         {
                             "value": "1"
                         }
-                    ],
-                    "Name": "parent-id"
+                    ]
                 },
                 {
-                    "values": [
-                        {
-                            "value": "Sample 3"
-                        }
-                    ],
-                    "Name": "user-04"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body>\nhtmlcustom3\n</body></html>"
-                        }
-                    ],
-                    "Name": "user-05"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-13"
-                        }
-                    ],
-                    "Name": "user-02"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "saisankar"
-                        }
-                    ],
-                    "Name": "user-03"
-                }
-            ],
-            "children-count": 0
-        },
-        {
-            "Type": "release",
-            "Fields": [
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "req-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "ver-stamp"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test4</span></font>\n</div>  \n</body></html>"
-                        }
-                    ],
-                    "Name": "description"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "scope-items-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-12T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "start-date"
-                },
-                {
+                    "Name": "assign-rcyc",
                     "values": [
                         {}
-                    ],
-                    "Name": "has-attachments"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-15T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "end-date"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-01-12 15:19:29"
-                        }
-                    ],
-                    "Name": "last-modified"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample New release-4"
-                        }
-                    ],
-                    "Name": "name"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "stringcustom4"
-                        }
-                    ],
-                    "Name": "user-01"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "milestones-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1011"
-                        }
-                    ],
-                    "Name": "id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "parent-id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample 2"
-                        }
-                    ],
-                    "Name": "user-04"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body>\nhtmlcustom4\n</body></html>"
-                        }
-                    ],
-                    "Name": "user-05"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-13"
-                        }
-                    ],
-                    "Name": "user-02"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "sakthi"
-                        }
-                    ],
-                    "Name": "user-03"
+                    ]
                 }
             ],
-            "children-count": 0
-        },
-        {
-            "Type": "release",
-            "Fields": [
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "req-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "ver-stamp"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body> \n<div align=\"left\" style=\"min-height:9pt\">\n<font face=\"Arial\"><span dir=\"ltr\" style=\"font-size:8pt\">test5</span></font>\n</div>  \n</body></html>"
-                        }
-                    ],
-                    "Name": "description"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "scope-items-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-12T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "start-date"
-                },
-                {
-                    "values": [
-                        {}
-                    ],
-                    "Name": "has-attachments"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-15T00:00:00+00:00"
-                        }
-                    ],
-                    "Name": "end-date"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-01-12 15:21:03"
-                        }
-                    ],
-                    "Name": "last-modified"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample New Release-5"
-                        }
-                    ],
-                    "Name": "name"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Stringcustom5"
-                        }
-                    ],
-                    "Name": "user-01"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "0"
-                        }
-                    ],
-                    "Name": "milestones-count"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1012"
-                        }
-                    ],
-                    "Name": "id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "1"
-                        }
-                    ],
-                    "Name": "parent-id"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "Sample 3"
-                        }
-                    ],
-                    "Name": "user-04"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "<html><body>\nhtmlcustom5\n</body></html>"
-                        }
-                    ],
-                    "Name": "user-05"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "2025-02-14"
-                        }
-                    ],
-                    "Name": "user-02"
-                },
-                {
-                    "values": [
-                        {
-                            "value": "fatima"
-                        }
-                    ],
-                    "Name": "user-03"
-                }
-            ],
+            "Type": "test-set-folder",
             "children-count": 0
         }
-    ],
-    "TotalResults": 5
-}
+  ],
+    "TotalResults": 28
+  }
+   
