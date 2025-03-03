@@ -45,21 +45,20 @@ const { Schema } = mongoose;
 
 // Define Valuefile Schema
 const valuefileSchema = new Schema({
-    entities: [
-      {
-        Fields: [
-          {
-            Name: { type: String, required: true },
-            values: [{ value: { type: String, default: null } }],
-          },
-        ],
-        Type: { type: String, required: true },
-        "children-count": { type: Number, default: 0 },
-      },
-    ],
-    TotalResults: { type: Number, default: 0 },
-  });
-
+  entities: [
+    {
+      Fields: [
+        {
+          Name: { type: String, required: true },
+          values: [{ value: { type: String, default: null } }],
+        },
+      ],
+      Type: { type: String, required: true },
+      "children-count": { type: Number, default: 0 },
+    },
+  ],
+  TotalResults: { type: Number, default: 0 },
+});
 
 const almSchema = new Schema({
     fieldname: { type: String, required: true }
